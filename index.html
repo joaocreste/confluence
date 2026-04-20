@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Confluence — every loyalty, finally home.</title>
+<meta name="description" content="Confluence gathers every loyalty programme you have into one clear view — priced in pounds, with the next move suggested."/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>:root{
+  --indigo:#1E1B3A;--iris:#B8A7E0;--sky:#A3BFE8;--apricot:#F2B78F;
+  --cream:#FBF8F3;--stone:#D8D4CC;
+  --font-display:'Fraunces',Georgia,'Times New Roman',serif;
+  --font-body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font-body);font-size:17px;line-height:1.65;
+  background:var(--indigo);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img,svg{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+h1,h2,h3{font-family:var(--font-display);font-weight:300;letter-spacing:-0.02em;margin:0}
+
+/* ---------- Section theming ---------- */
+/* default = light section */
+section{
+  --bg:var(--cream);
+  --text:var(--indigo);
+  --muted:rgba(30,27,58,0.6);
+  --faint:rgba(30,27,58,0.4);
+  --surface:#ffffff;
+  --surface-border:rgba(30,27,58,0.1);
+  --rule:rgba(30,27,58,0.08);
+  background:var(--bg);
+  color:var(--text);
+  padding:10rem 2rem;
+}
+/* dark section override */
+section.dark{
+  --bg:var(--indigo);
+  --text:var(--cream);
+  --muted:rgba(251,248,243,0.62);
+  --faint:rgba(251,248,243,0.38);
+  --surface:rgba(255,255,255,0.035);
+  --surface-border:rgba(255,255,255,0.12);
+  --rule:rgba(255,255,255,0.08);
+}
+section > .inner{max-width:960px;margin:0 auto}
+
+.label{font-size:11px;font-weight:500;letter-spacing:0.16em;color:var(--muted);display:inline-block}
+
+.fade{opacity:1;transform:none;transition:opacity 1s ease,transform 1s ease}
+.js-fade .fade{opacity:0;transform:translateY(14px)}
+.js-fade .fade.in{opacity:1;transform:translateY(0)}
+
+/* ---------- Nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:1.5rem 2rem;
+  display:flex;justify-content:space-between;align-items:center;
+  color:var(--cream);transition:background .45s ease,color .45s ease,border-color .45s ease;
+  border-bottom:0.5px solid transparent}
+nav.over-light{background:rgba(251,248,243,0.88);backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);color:var(--indigo);
+  border-bottom-color:rgba(30,27,58,0.06)}
+nav.over-dark.scrolled{background:rgba(30,27,58,0.75);backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);border-bottom-color:rgba(255,255,255,0.06)}
+nav .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);
+  font-weight:300;font-size:20px;letter-spacing:-0.012em;color:inherit}
+nav .brand svg{width:24px;height:24px}
+nav a.cta{font-size:13px;font-weight:500;color:inherit;padding:8px 16px;
+  border:0.5px solid currentColor;border-radius:999px;opacity:0.85;
+  transition:opacity .3s,background .3s,color .3s}
+nav a.cta:hover{opacity:1}
+nav.over-light a.cta:hover{background:var(--indigo);color:var(--cream);border-color:var(--indigo)}
+nav.over-dark a.cta:hover{background:var(--cream);color:var(--indigo);border-color:var(--cream)}
+
+/* ---------- Hero ---------- */
+section.hero{padding:9rem 2rem 7rem;text-align:center;max-width:none;
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+section.hero > .inner{max-width:1100px;width:100%}
+.hero-mark{width:min(58vw,440px);margin:0 auto 2.25rem;
+  animation:breathe 13s ease-in-out infinite;
+  filter:drop-shadow(0 28px 60px rgba(0,0,0,0.35)) drop-shadow(0 0 30px rgba(184,167,224,0.12))}
+@keyframes breathe{0%,100%{transform:rotate(0deg)}50%{transform:rotate(2.5deg)}}
+.hero-tagline{font-weight:300;font-size:clamp(38px,5.4vw,72px);line-height:1.06;
+  letter-spacing:-0.028em;margin:0 auto 1.5rem;max-width:17ch;color:var(--text)}
+.hero-lede{font-size:clamp(16px,1.6vw,19px);color:var(--muted);max-width:52ch;
+  margin:0 auto;line-height:1.65}
+.scroll-hint{margin-top:5rem;font-size:12px;color:var(--faint);letter-spacing:0.2em;
+  display:flex;align-items:center;gap:10px;justify-content:center}
+.scroll-hint::before,.scroll-hint::after{content:'';display:block;width:24px;height:0.5px;
+  background:currentColor;opacity:0.5}
+
+/* ---------- Block layout ---------- */
+.block{display:grid;grid-template-columns:1fr;gap:2.25rem;align-items:start;max-width:960px;margin:0 auto}
+@media(min-width:820px){
+  .block.two{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:5rem;align-items:center}
+  .block.two.flip{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+}
+.block > div:first-child{max-width:46ch}
+.block .label{margin-bottom:1.5rem}
+.block h2{font-weight:300;font-size:clamp(30px,3.8vw,50px);line-height:1.08;
+  letter-spacing:-0.024em;margin:0 0 1.5rem;max-width:20ch;color:var(--text)}
+.block p{font-size:17px;color:var(--muted);margin:0 0 1.25rem;line-height:1.75;max-width:44ch}
+.block p:last-child{margin-bottom:0}
+
+/* ---------- Ledger figure ---------- */
+.figure{background:var(--surface);border:0.5px solid var(--surface-border);
+  border-radius:14px;padding:1.75rem 2rem;color:var(--text)}
+.figure .fcap{font-size:11px;letter-spacing:0.12em;color:var(--faint);
+  margin-bottom:1.25rem;text-transform:lowercase}
+.figure table{width:100%;border-collapse:collapse;font-size:14px}
+.figure td{padding:12px 0;border-bottom:0.5px solid var(--rule);vertical-align:baseline}
+.figure tr:last-child td{border-bottom:none}
+.figure td.programme{color:var(--text);font-weight:500}
+.figure td.points{color:var(--faint);font-variant-numeric:tabular-nums;padding-left:1rem}
+.figure td.worth{text-align:right;font-family:var(--font-display);font-weight:400;
+  font-size:16px;font-variant-numeric:tabular-nums;color:var(--text)}
+.figure tfoot td{padding-top:18px;font-family:var(--font-display);font-size:19px;
+  font-weight:400;border-bottom:none;color:var(--text)}
+.figure tfoot td.total{text-align:right}
+
+/* ---------- Insight cards ---------- */
+.insight-card{background:var(--surface);border:0.5px solid var(--surface-border);
+  border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:12px;
+  display:flex;align-items:flex-start;gap:14px}
+.insight-card .dot{width:8px;height:8px;border-radius:50%;margin-top:9px;flex-shrink:0}
+.insight-card .dot.warn{background:var(--apricot)}
+.insight-card .dot.good{background:var(--iris)}
+.insight-card .dot.info{background:var(--sky)}
+.insight-card .title{font-size:14px;font-weight:500;margin:0 0 4px;color:var(--text)}
+.insight-card .sub{font-size:13px;color:var(--muted);margin:0;line-height:1.6}
+
+/* ---------- Coming section ---------- */
+section.coming{padding:9rem 2rem}
+section.coming > .inner{max-width:880px}
+section.coming .label{color:var(--muted)}
+section.coming h2{font-size:clamp(32px,4.2vw,54px);line-height:1.05;letter-spacing:-0.025em;
+  max-width:18ch;margin:1rem 0 2rem;color:var(--text)}
+section.coming p{color:var(--muted);font-size:18px;max-width:52ch;line-height:1.75;margin:0 0 1.25rem}
+
+.form-line{margin-top:3.5rem;display:flex;gap:0;max-width:520px;
+  border-bottom:0.5px solid var(--surface-border)}
+.form-line input{flex:1;background:transparent;border:none;color:var(--text);
+  font-family:var(--font-body);font-size:16px;padding:14px 0;outline:none}
+.form-line input::placeholder{color:var(--faint)}
+.form-line button{background:transparent;border:none;color:var(--text);
+  font-family:var(--font-body);font-size:13px;font-weight:500;letter-spacing:0.1em;
+  padding:14px 4px;transition:opacity .3s}
+.form-line button:hover{opacity:0.65}
+.form-note{font-size:12px;color:var(--faint);margin-top:1rem;font-style:italic}
+
+/* ---------- Footer ---------- */
+footer{padding:3rem 2rem 2.5rem;background:var(--indigo);color:rgba(251,248,243,0.48);
+  font-size:13px;border-top:0.5px solid rgba(255,255,255,0.06)}
+footer .inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;padding-top:0}
+footer .inner .left{display:flex;align-items:center;gap:10px;font-family:var(--font-display);
+  font-weight:300;color:rgba(251,248,243,0.7);font-size:15px}
+footer .inner .left svg{width:20px;height:20px;opacity:0.85}
+
+@media(max-width:640px){
+  section{padding:6rem 1.5rem}
+  section.hero{padding:7rem 1.5rem 5rem}
+  section.coming{padding:6rem 1.5rem}
+  nav{padding:1rem 1.25rem}
+  nav .brand{font-size:17px}
+  nav .brand svg{width:20px;height:20px}
+  .block.two{gap:3rem}
+  .figure{padding:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav class="over-dark">
+  <div class="brand">
+    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Confluence">
+<title>Confluence</title>
+<defs>
+<linearGradient id="bg0" gradientUnits="userSpaceOnUse" x1="252.90" y1="102.21" x2="88.86" y2="203.08">
+<stop offset="0.0%" stop-color="#f4f0f8"/>
+<stop offset="8.3%" stop-color="#efeaf4"/>
+<stop offset="16.7%" stop-color="#e1d9eb"/>
+<stop offset="25.0%" stop-color="#cbc0e2"/>
+<stop offset="33.3%" stop-color="#a695d3"/>
+<stop offset="41.7%" stop-color="#8372ba"/>
+<stop offset="50.0%" stop-color="#625597"/>
+<stop offset="58.3%" stop-color="#443c6c"/>
+<stop offset="66.7%" stop-color="#2c274d"/>
+<stop offset="75.0%" stop-color="#191734"/>
+<stop offset="83.3%" stop-color="#0e0c26"/>
+<stop offset="91.7%" stop-color="#07061d"/>
+<stop offset="100.0%" stop-color="#05041a"/>
+</linearGradient>
+<linearGradient id="bg1" gradientUnits="userSpaceOnUse" x1="88.86" y1="203.08" x2="258.23" y2="294.71">
+<stop offset="0.0%" stop-color="#05041a"/>
+<stop offset="8.3%" stop-color="#07061d"/>
+<stop offset="16.7%" stop-color="#0e0c26"/>
+<stop offset="25.0%" stop-color="#191734"/>
+<stop offset="33.3%" stop-color="#2c274d"/>
+<stop offset="41.7%" stop-color="#443c6c"/>
+<stop offset="50.0%" stop-color="#625597"/>
+<stop offset="58.3%" stop-color="#8372ba"/>
+<stop offset="66.7%" stop-color="#a695d3"/>
+<stop offset="75.0%" stop-color="#cbc0e2"/>
+<stop offset="83.3%" stop-color="#e1d9eb"/>
+<stop offset="91.7%" stop-color="#efeaf4"/>
+<stop offset="100.0%" stop-color="#f4f0f8"/>
+</linearGradient>
+<linearGradient id="bg2" gradientUnits="userSpaceOnUse" x1="258.23" y1="294.71" x2="252.90" y2="102.21">
+<stop offset="0.0%" stop-color="#f4f0f8"/>
+<stop offset="8.3%" stop-color="#efeaf4"/>
+<stop offset="16.7%" stop-color="#e1d9eb"/>
+<stop offset="25.0%" stop-color="#cbc0e2"/>
+<stop offset="33.3%" stop-color="#a695d3"/>
+<stop offset="41.7%" stop-color="#8372ba"/>
+<stop offset="50.0%" stop-color="#625597"/>
+<stop offset="58.3%" stop-color="#443c6c"/>
+<stop offset="66.7%" stop-color="#2c274d"/>
+<stop offset="75.0%" stop-color="#191734"/>
+<stop offset="83.3%" stop-color="#0e0c26"/>
+<stop offset="91.7%" stop-color="#07061d"/>
+<stop offset="100.0%" stop-color="#05041a"/>
+</linearGradient>
+</defs>
+<path d="M 242.46,337.92 L 246.86,339.38 L 251.34,340.56 L 255.88,341.48 L 260.46,342.11 L 265.06,342.46 L 269.67,342.53 L 274.25,342.33 L 278.80,341.84 L 283.30,341.09 L 287.73,340.07 L 292.06,338.78 L 323.18,265.66 L 321.90,263.30 L 320.56,260.95 L 319.16,258.61 L 317.71,256.28 L 316.19,253.96 L 314.62,251.65 L 313.00,249.35 L 311.33,247.06 L 309.61,244.78 L 307.84,242.50 L 306.02,240.23 L 304.16,237.98 L 302.26,235.72 L 300.33,233.48 L 298.35,231.24 L 296.34,229.01 L 294.30,226.78 L 292.23,224.56 L 290.14,222.34 L 288.01,220.13 L 285.87,217.92 L 283.71,215.71 L 281.53,213.51 L 279.34,211.31 L 277.14,209.11 L 274.93,206.91 L 272.71,204.72 L 270.50,202.52 L 268.28,200.33 L 266.06,198.13 L 263.85,195.93 L 261.65,193.73 L 259.46,191.53 L 257.28,189.33 L 255.12,187.12 L 252.98,184.92 L 250.86,182.70 L 248.76,180.49 L 246.69,178.26 L 244.65,176.04 L 242.64,173.80 L 240.66,171.57 L 238.73,169.32 L 236.83,167.07 L 234.97,164.81 L 233.15,162.54 L 231.38,160.27 L 229.66,157.99 L 227.99,155.69 L 226.37,153.39 L 224.80,151.08 L 223.29,148.76 L 221.83,146.43 L 220.43,144.10 L 219.09,141.75 L 217.81,139.38 L 216.60,137.01 L 215.44,134.63 L 214.35,132.24 L 213.33,129.83 L 212.38,127.41 L 211.49,124.98 L 210.67,122.54 L 209.91,120.09 L 209.23,117.63 L 208.62,115.15 L 208.07,112.66 L 207.60,110.16 L 298.21,94.27 L 298.62,96.78 L 298.95,99.31 L 299.22,101.85 L 299.41,104.40 L 299.54,106.96 L 299.60,109.53 L 299.59,112.12 L 299.51,114.72 L 299.37,117.33 L 299.16,119.95 L 298.89,122.58 L 298.55,125.23 L 298.15,127.88 L 297.69,130.55 L 297.17,133.22 L 296.60,135.91 L 295.96,138.60 L 295.27,141.31 L 294.53,144.02 L 293.74,146.75 L 292.90,149.48 L 292.00,152.22 L 291.07,154.97 L 290.09,157.73 L 289.07,160.49 L 288.01,163.26 L 286.92,166.04 L 285.79,168.82 L 284.63,171.61 L 283.44,174.40 L 282.22,177.20 L 280.98,180.00 L 279.72,182.81 L 278.43,185.62 L 277.14,188.43 L 275.82,191.25 L 274.50,194.07 L 273.17,196.88 L 271.83,199.70 L 270.50,202.52 L 269.16,205.34 L 267.82,208.16 L 266.49,210.98 L 265.17,213.80 L 263.85,216.61 L 262.56,219.42 L 261.28,222.23 L 260.01,225.04 L 258.77,227.84 L 257.55,230.64 L 256.36,233.43 L 255.20,236.22 L 254.07,239.01 L 252.98,241.78 L 251.92,244.55 L 250.90,247.32 L 249.92,250.07 L 248.99,252.82 L 248.10,255.56 L 247.25,258.30 L 246.46,261.02 L 245.72,263.73 L 245.03,266.44 L 244.39,269.14 L 243.82,271.82 L 243.30,274.50 L 242.84,277.16 L 242.44,279.82 L 279.56,256.17 L 278.85,255.53 L 278.20,254.93 L 277.60,254.36 L 277.06,253.83 L 276.57,253.34 L 276.10,252.91 L 275.67,252.52 L 275.25,252.19 L 274.84,251.91 L 274.43,251.68 L 274.01,251.50 Z" fill="url(#bg2)"/>
+<path d="M 118.40,238.34 L 118.03,238.62 L 117.63,238.86 L 117.18,239.07 L 116.68,239.27 L 116.13,239.45 L 115.52,239.64 L 114.85,239.83 L 114.12,240.03 L 113.33,240.26 L 112.48,240.52 L 111.57,240.82 L 109.66,196.84 L 111.76,198.52 L 113.83,200.25 L 115.89,202.04 L 117.93,203.88 L 119.95,205.78 L 121.95,207.73 L 123.93,209.73 L 125.89,211.77 L 127.83,213.87 L 129.76,216.01 L 131.68,218.20 L 133.57,220.42 L 135.46,222.69 L 137.33,224.99 L 139.18,227.33 L 141.03,229.70 L 142.86,232.10 L 144.69,234.52 L 146.50,236.98 L 148.31,239.45 L 150.11,241.95 L 151.90,244.46 L 153.69,246.99 L 155.47,249.54 L 157.25,252.09 L 159.02,254.65 L 160.80,257.22 L 162.57,259.79 L 164.34,262.36 L 166.11,264.93 L 167.89,267.49 L 169.67,270.04 L 171.45,272.58 L 173.24,275.12 L 175.03,277.63 L 176.83,280.13 L 178.63,282.60 L 180.45,285.06 L 182.27,287.48 L 184.11,289.88 L 185.95,292.25 L 187.81,294.59 L 189.68,296.89 L 191.56,299.16 L 193.46,301.38 L 195.37,303.57 L 197.30,305.71 L 199.25,307.80 L 201.21,309.85 L 203.19,311.85 L 205.19,313.80 L 207.21,315.70 L 209.24,317.54 L 211.30,319.33 L 213.38,321.06 L 215.48,322.74 L 217.60,324.35 L 219.75,325.90 L 221.91,327.39 L 224.10,328.82 L 226.31,330.19 L 228.55,331.49 L 230.81,332.73 L 233.09,333.90 L 235.40,335.00 L 237.73,336.04 L 240.08,337.02 L 242.46,337.92 L 274.01,251.50 L 271.60,250.66 L 269.18,249.89 L 266.72,249.18 L 264.25,248.54 L 261.75,247.96 L 259.22,247.46 L 256.67,247.01 L 254.10,246.63 L 251.51,246.31 L 248.89,246.06 L 246.25,245.87 L 243.59,245.73 L 240.91,245.66 L 238.20,245.64 L 235.47,245.69 L 232.73,245.78 L 229.96,245.93 L 227.18,246.14 L 224.38,246.39 L 221.55,246.70 L 218.72,247.05 L 215.86,247.44 L 212.99,247.88 L 210.11,248.36 L 207.21,248.88 L 204.29,249.43 L 201.37,250.02 L 198.43,250.65 L 195.48,251.30 L 192.52,251.98 L 189.55,252.69 L 186.58,253.42 L 183.59,254.17 L 180.60,254.94 L 177.60,255.72 L 174.60,256.52 L 171.60,257.33 L 168.59,258.15 L 165.58,258.97 L 162.57,259.79 L 159.56,260.61 L 156.55,261.43 L 153.54,262.25 L 150.53,263.06 L 147.53,263.85 L 144.54,264.64 L 141.55,265.41 L 138.56,266.16 L 135.58,266.89 L 132.62,267.60 L 129.66,268.28 L 126.71,268.93 L 123.77,269.55 L 120.84,270.15 L 117.93,270.70 L 115.03,271.22 L 112.14,271.70 L 109.27,272.14 L 106.42,272.53 L 103.58,272.88 L 100.76,273.19 L 97.96,273.44 L 95.17,273.64 L 92.41,273.80 L 89.66,273.89 L 86.94,273.93 L 84.23,273.92 L 81.55,273.85 L 33.78,210.33 L 34.84,205.94 L 36.16,201.60 L 37.76,197.32 L 39.61,193.14 L 41.73,189.07 L 44.09,185.12 L 46.70,181.31 L 49.54,177.66 L 52.60,174.18 L 55.86,170.90 L 59.33,167.81 Z" fill="url(#bg1)"/>
+<path d="M 298.21,94.27 L 297.27,89.73 L 296.06,85.25 L 294.58,80.87 L 292.84,76.58 L 290.84,72.42 L 288.61,68.40 L 286.13,64.53 L 283.44,60.83 L 280.54,57.31 L 277.44,53.99 L 274.16,50.88 L 195.27,60.49 L 193.87,62.78 L 192.50,65.12 L 191.18,67.50 L 189.89,69.92 L 188.64,72.39 L 187.42,74.91 L 186.24,77.46 L 185.09,80.06 L 183.97,82.69 L 182.89,85.36 L 181.83,88.07 L 180.81,90.80 L 179.81,93.57 L 178.83,96.38 L 177.88,99.21 L 176.95,102.06 L 176.04,104.94 L 175.15,107.85 L 174.28,110.77 L 173.42,113.71 L 172.58,116.67 L 171.75,119.65 L 170.93,122.63 L 170.12,125.63 L 169.32,128.64 L 168.52,131.65 L 167.73,134.67 L 166.94,137.69 L 166.14,140.71 L 165.35,143.72 L 164.55,146.74 L 163.75,149.74 L 162.94,152.74 L 162.12,155.73 L 161.29,158.70 L 160.45,161.66 L 159.59,164.61 L 158.72,167.53 L 157.83,170.43 L 156.92,173.32 L 155.99,176.17 L 155.04,179.00 L 154.07,181.80 L 153.07,184.57 L 152.04,187.31 L 150.98,190.02 L 149.90,192.69 L 148.78,195.32 L 147.64,197.91 L 146.45,200.47 L 145.24,202.98 L 143.99,205.45 L 142.70,207.88 L 141.37,210.26 L 140.01,212.59 L 138.60,214.88 L 137.15,217.12 L 135.67,219.31 L 134.14,221.45 L 132.57,223.54 L 130.95,225.58 L 129.29,227.56 L 127.59,229.49 L 125.84,231.37 L 124.05,233.19 L 122.21,234.96 L 120.33,236.68 L 118.40,238.34 L 59.33,167.81 L 61.30,166.20 L 63.32,164.65 L 65.39,163.15 L 67.50,161.71 L 69.65,160.32 L 71.85,158.98 L 74.10,157.69 L 76.39,156.46 L 78.72,155.28 L 81.09,154.15 L 83.51,153.07 L 85.97,152.04 L 88.47,151.06 L 91.00,150.12 L 93.58,149.23 L 96.20,148.39 L 98.85,147.59 L 101.54,146.84 L 104.26,146.12 L 107.01,145.45 L 109.80,144.81 L 112.62,144.21 L 115.47,143.65 L 118.35,143.12 L 121.25,142.62 L 124.18,142.15 L 127.13,141.71 L 130.11,141.29 L 133.10,140.91 L 136.12,140.54 L 139.15,140.19 L 142.19,139.87 L 145.26,139.56 L 148.33,139.26 L 151.42,138.98 L 154.51,138.71 L 157.61,138.45 L 160.72,138.19 L 163.83,137.94 L 166.94,137.69 L 170.05,137.44 L 173.16,137.19 L 176.26,136.93 L 179.36,136.67 L 182.46,136.39 L 185.54,136.11 L 188.62,135.82 L 191.68,135.51 L 194.73,135.18 L 197.76,134.84 L 200.77,134.47 L 203.77,134.08 L 206.74,133.67 L 209.70,133.23 L 212.62,132.76 L 215.53,132.26 L 218.40,131.73 L 221.25,131.17 L 224.07,130.57 L 226.86,129.93 L 229.61,129.26 L 232.34,128.54 L 235.02,127.78 L 237.68,126.99 L 240.29,126.14 L 242.87,125.25 L 245.41,124.32 L 247.91,123.34 L 208.86,103.01 L 208.67,103.95 L 208.47,104.82 L 208.27,105.61 L 208.08,106.35 L 207.91,107.02 L 207.77,107.64 L 207.65,108.21 L 207.57,108.74 L 207.54,109.23 L 207.54,109.70 L 207.60,110.16 Z" fill="url(#bg0)"/>
+</svg>
+    <span>confluence</span>
+  </div>
+  <a href="#early" class="cta">Early access</a>
+</nav>
+
+<section class="hero dark">
+  <div class="inner">
+    <div class="hero-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Confluence">
+<title>Confluence</title>
+<defs>
+<linearGradient id="bg0" gradientUnits="userSpaceOnUse" x1="252.90" y1="102.21" x2="88.86" y2="203.08">
+<stop offset="0.0%" stop-color="#f4f0f8"/>
+<stop offset="8.3%" stop-color="#efeaf4"/>
+<stop offset="16.7%" stop-color="#e1d9eb"/>
+<stop offset="25.0%" stop-color="#cbc0e2"/>
+<stop offset="33.3%" stop-color="#a695d3"/>
+<stop offset="41.7%" stop-color="#8372ba"/>
+<stop offset="50.0%" stop-color="#625597"/>
+<stop offset="58.3%" stop-color="#443c6c"/>
+<stop offset="66.7%" stop-color="#2c274d"/>
+<stop offset="75.0%" stop-color="#191734"/>
+<stop offset="83.3%" stop-color="#0e0c26"/>
+<stop offset="91.7%" stop-color="#07061d"/>
+<stop offset="100.0%" stop-color="#05041a"/>
+</linearGradient>
+<linearGradient id="bg1" gradientUnits="userSpaceOnUse" x1="88.86" y1="203.08" x2="258.23" y2="294.71">
+<stop offset="0.0%" stop-color="#05041a"/>
+<stop offset="8.3%" stop-color="#07061d"/>
+<stop offset="16.7%" stop-color="#0e0c26"/>
+<stop offset="25.0%" stop-color="#191734"/>
+<stop offset="33.3%" stop-color="#2c274d"/>
+<stop offset="41.7%" stop-color="#443c6c"/>
+<stop offset="50.0%" stop-color="#625597"/>
+<stop offset="58.3%" stop-color="#8372ba"/>
+<stop offset="66.7%" stop-color="#a695d3"/>
+<stop offset="75.0%" stop-color="#cbc0e2"/>
+<stop offset="83.3%" stop-color="#e1d9eb"/>
+<stop offset="91.7%" stop-color="#efeaf4"/>
+<stop offset="100.0%" stop-color="#f4f0f8"/>
+</linearGradient>
+<linearGradient id="bg2" gradientUnits="userSpaceOnUse" x1="258.23" y1="294.71" x2="252.90" y2="102.21">
+<stop offset="0.0%" stop-color="#f4f0f8"/>
+<stop offset="8.3%" stop-color="#efeaf4"/>
+<stop offset="16.7%" stop-color="#e1d9eb"/>
+<stop offset="25.0%" stop-color="#cbc0e2"/>
+<stop offset="33.3%" stop-color="#a695d3"/>
+<stop offset="41.7%" stop-color="#8372ba"/>
+<stop offset="50.0%" stop-color="#625597"/>
+<stop offset="58.3%" stop-color="#443c6c"/>
+<stop offset="66.7%" stop-color="#2c274d"/>
+<stop offset="75.0%" stop-color="#191734"/>
+<stop offset="83.3%" stop-color="#0e0c26"/>
+<stop offset="91.7%" stop-color="#07061d"/>
+<stop offset="100.0%" stop-color="#05041a"/>
+</linearGradient>
+</defs>
+<path d="M 242.46,337.92 L 246.86,339.38 L 251.34,340.56 L 255.88,341.48 L 260.46,342.11 L 265.06,342.46 L 269.67,342.53 L 274.25,342.33 L 278.80,341.84 L 283.30,341.09 L 287.73,340.07 L 292.06,338.78 L 323.18,265.66 L 321.90,263.30 L 320.56,260.95 L 319.16,258.61 L 317.71,256.28 L 316.19,253.96 L 314.62,251.65 L 313.00,249.35 L 311.33,247.06 L 309.61,244.78 L 307.84,242.50 L 306.02,240.23 L 304.16,237.98 L 302.26,235.72 L 300.33,233.48 L 298.35,231.24 L 296.34,229.01 L 294.30,226.78 L 292.23,224.56 L 290.14,222.34 L 288.01,220.13 L 285.87,217.92 L 283.71,215.71 L 281.53,213.51 L 279.34,211.31 L 277.14,209.11 L 274.93,206.91 L 272.71,204.72 L 270.50,202.52 L 268.28,200.33 L 266.06,198.13 L 263.85,195.93 L 261.65,193.73 L 259.46,191.53 L 257.28,189.33 L 255.12,187.12 L 252.98,184.92 L 250.86,182.70 L 248.76,180.49 L 246.69,178.26 L 244.65,176.04 L 242.64,173.80 L 240.66,171.57 L 238.73,169.32 L 236.83,167.07 L 234.97,164.81 L 233.15,162.54 L 231.38,160.27 L 229.66,157.99 L 227.99,155.69 L 226.37,153.39 L 224.80,151.08 L 223.29,148.76 L 221.83,146.43 L 220.43,144.10 L 219.09,141.75 L 217.81,139.38 L 216.60,137.01 L 215.44,134.63 L 214.35,132.24 L 213.33,129.83 L 212.38,127.41 L 211.49,124.98 L 210.67,122.54 L 209.91,120.09 L 209.23,117.63 L 208.62,115.15 L 208.07,112.66 L 207.60,110.16 L 298.21,94.27 L 298.62,96.78 L 298.95,99.31 L 299.22,101.85 L 299.41,104.40 L 299.54,106.96 L 299.60,109.53 L 299.59,112.12 L 299.51,114.72 L 299.37,117.33 L 299.16,119.95 L 298.89,122.58 L 298.55,125.23 L 298.15,127.88 L 297.69,130.55 L 297.17,133.22 L 296.60,135.91 L 295.96,138.60 L 295.27,141.31 L 294.53,144.02 L 293.74,146.75 L 292.90,149.48 L 292.00,152.22 L 291.07,154.97 L 290.09,157.73 L 289.07,160.49 L 288.01,163.26 L 286.92,166.04 L 285.79,168.82 L 284.63,171.61 L 283.44,174.40 L 282.22,177.20 L 280.98,180.00 L 279.72,182.81 L 278.43,185.62 L 277.14,188.43 L 275.82,191.25 L 274.50,194.07 L 273.17,196.88 L 271.83,199.70 L 270.50,202.52 L 269.16,205.34 L 267.82,208.16 L 266.49,210.98 L 265.17,213.80 L 263.85,216.61 L 262.56,219.42 L 261.28,222.23 L 260.01,225.04 L 258.77,227.84 L 257.55,230.64 L 256.36,233.43 L 255.20,236.22 L 254.07,239.01 L 252.98,241.78 L 251.92,244.55 L 250.90,247.32 L 249.92,250.07 L 248.99,252.82 L 248.10,255.56 L 247.25,258.30 L 246.46,261.02 L 245.72,263.73 L 245.03,266.44 L 244.39,269.14 L 243.82,271.82 L 243.30,274.50 L 242.84,277.16 L 242.44,279.82 L 279.56,256.17 L 278.85,255.53 L 278.20,254.93 L 277.60,254.36 L 277.06,253.83 L 276.57,253.34 L 276.10,252.91 L 275.67,252.52 L 275.25,252.19 L 274.84,251.91 L 274.43,251.68 L 274.01,251.50 Z" fill="url(#bg2)"/>
+<path d="M 118.40,238.34 L 118.03,238.62 L 117.63,238.86 L 117.18,239.07 L 116.68,239.27 L 116.13,239.45 L 115.52,239.64 L 114.85,239.83 L 114.12,240.03 L 113.33,240.26 L 112.48,240.52 L 111.57,240.82 L 109.66,196.84 L 111.76,198.52 L 113.83,200.25 L 115.89,202.04 L 117.93,203.88 L 119.95,205.78 L 121.95,207.73 L 123.93,209.73 L 125.89,211.77 L 127.83,213.87 L 129.76,216.01 L 131.68,218.20 L 133.57,220.42 L 135.46,222.69 L 137.33,224.99 L 139.18,227.33 L 141.03,229.70 L 142.86,232.10 L 144.69,234.52 L 146.50,236.98 L 148.31,239.45 L 150.11,241.95 L 151.90,244.46 L 153.69,246.99 L 155.47,249.54 L 157.25,252.09 L 159.02,254.65 L 160.80,257.22 L 162.57,259.79 L 164.34,262.36 L 166.11,264.93 L 167.89,267.49 L 169.67,270.04 L 171.45,272.58 L 173.24,275.12 L 175.03,277.63 L 176.83,280.13 L 178.63,282.60 L 180.45,285.06 L 182.27,287.48 L 184.11,289.88 L 185.95,292.25 L 187.81,294.59 L 189.68,296.89 L 191.56,299.16 L 193.46,301.38 L 195.37,303.57 L 197.30,305.71 L 199.25,307.80 L 201.21,309.85 L 203.19,311.85 L 205.19,313.80 L 207.21,315.70 L 209.24,317.54 L 211.30,319.33 L 213.38,321.06 L 215.48,322.74 L 217.60,324.35 L 219.75,325.90 L 221.91,327.39 L 224.10,328.82 L 226.31,330.19 L 228.55,331.49 L 230.81,332.73 L 233.09,333.90 L 235.40,335.00 L 237.73,336.04 L 240.08,337.02 L 242.46,337.92 L 274.01,251.50 L 271.60,250.66 L 269.18,249.89 L 266.72,249.18 L 264.25,248.54 L 261.75,247.96 L 259.22,247.46 L 256.67,247.01 L 254.10,246.63 L 251.51,246.31 L 248.89,246.06 L 246.25,245.87 L 243.59,245.73 L 240.91,245.66 L 238.20,245.64 L 235.47,245.69 L 232.73,245.78 L 229.96,245.93 L 227.18,246.14 L 224.38,246.39 L 221.55,246.70 L 218.72,247.05 L 215.86,247.44 L 212.99,247.88 L 210.11,248.36 L 207.21,248.88 L 204.29,249.43 L 201.37,250.02 L 198.43,250.65 L 195.48,251.30 L 192.52,251.98 L 189.55,252.69 L 186.58,253.42 L 183.59,254.17 L 180.60,254.94 L 177.60,255.72 L 174.60,256.52 L 171.60,257.33 L 168.59,258.15 L 165.58,258.97 L 162.57,259.79 L 159.56,260.61 L 156.55,261.43 L 153.54,262.25 L 150.53,263.06 L 147.53,263.85 L 144.54,264.64 L 141.55,265.41 L 138.56,266.16 L 135.58,266.89 L 132.62,267.60 L 129.66,268.28 L 126.71,268.93 L 123.77,269.55 L 120.84,270.15 L 117.93,270.70 L 115.03,271.22 L 112.14,271.70 L 109.27,272.14 L 106.42,272.53 L 103.58,272.88 L 100.76,273.19 L 97.96,273.44 L 95.17,273.64 L 92.41,273.80 L 89.66,273.89 L 86.94,273.93 L 84.23,273.92 L 81.55,273.85 L 33.78,210.33 L 34.84,205.94 L 36.16,201.60 L 37.76,197.32 L 39.61,193.14 L 41.73,189.07 L 44.09,185.12 L 46.70,181.31 L 49.54,177.66 L 52.60,174.18 L 55.86,170.90 L 59.33,167.81 Z" fill="url(#bg1)"/>
+<path d="M 298.21,94.27 L 297.27,89.73 L 296.06,85.25 L 294.58,80.87 L 292.84,76.58 L 290.84,72.42 L 288.61,68.40 L 286.13,64.53 L 283.44,60.83 L 280.54,57.31 L 277.44,53.99 L 274.16,50.88 L 195.27,60.49 L 193.87,62.78 L 192.50,65.12 L 191.18,67.50 L 189.89,69.92 L 188.64,72.39 L 187.42,74.91 L 186.24,77.46 L 185.09,80.06 L 183.97,82.69 L 182.89,85.36 L 181.83,88.07 L 180.81,90.80 L 179.81,93.57 L 178.83,96.38 L 177.88,99.21 L 176.95,102.06 L 176.04,104.94 L 175.15,107.85 L 174.28,110.77 L 173.42,113.71 L 172.58,116.67 L 171.75,119.65 L 170.93,122.63 L 170.12,125.63 L 169.32,128.64 L 168.52,131.65 L 167.73,134.67 L 166.94,137.69 L 166.14,140.71 L 165.35,143.72 L 164.55,146.74 L 163.75,149.74 L 162.94,152.74 L 162.12,155.73 L 161.29,158.70 L 160.45,161.66 L 159.59,164.61 L 158.72,167.53 L 157.83,170.43 L 156.92,173.32 L 155.99,176.17 L 155.04,179.00 L 154.07,181.80 L 153.07,184.57 L 152.04,187.31 L 150.98,190.02 L 149.90,192.69 L 148.78,195.32 L 147.64,197.91 L 146.45,200.47 L 145.24,202.98 L 143.99,205.45 L 142.70,207.88 L 141.37,210.26 L 140.01,212.59 L 138.60,214.88 L 137.15,217.12 L 135.67,219.31 L 134.14,221.45 L 132.57,223.54 L 130.95,225.58 L 129.29,227.56 L 127.59,229.49 L 125.84,231.37 L 124.05,233.19 L 122.21,234.96 L 120.33,236.68 L 118.40,238.34 L 59.33,167.81 L 61.30,166.20 L 63.32,164.65 L 65.39,163.15 L 67.50,161.71 L 69.65,160.32 L 71.85,158.98 L 74.10,157.69 L 76.39,156.46 L 78.72,155.28 L 81.09,154.15 L 83.51,153.07 L 85.97,152.04 L 88.47,151.06 L 91.00,150.12 L 93.58,149.23 L 96.20,148.39 L 98.85,147.59 L 101.54,146.84 L 104.26,146.12 L 107.01,145.45 L 109.80,144.81 L 112.62,144.21 L 115.47,143.65 L 118.35,143.12 L 121.25,142.62 L 124.18,142.15 L 127.13,141.71 L 130.11,141.29 L 133.10,140.91 L 136.12,140.54 L 139.15,140.19 L 142.19,139.87 L 145.26,139.56 L 148.33,139.26 L 151.42,138.98 L 154.51,138.71 L 157.61,138.45 L 160.72,138.19 L 163.83,137.94 L 166.94,137.69 L 170.05,137.44 L 173.16,137.19 L 176.26,136.93 L 179.36,136.67 L 182.46,136.39 L 185.54,136.11 L 188.62,135.82 L 191.68,135.51 L 194.73,135.18 L 197.76,134.84 L 200.77,134.47 L 203.77,134.08 L 206.74,133.67 L 209.70,133.23 L 212.62,132.76 L 215.53,132.26 L 218.40,131.73 L 221.25,131.17 L 224.07,130.57 L 226.86,129.93 L 229.61,129.26 L 232.34,128.54 L 235.02,127.78 L 237.68,126.99 L 240.29,126.14 L 242.87,125.25 L 245.41,124.32 L 247.91,123.34 L 208.86,103.01 L 208.67,103.95 L 208.47,104.82 L 208.27,105.61 L 208.08,106.35 L 207.91,107.02 L 207.77,107.64 L 207.65,108.21 L 207.57,108.74 L 207.54,109.23 L 207.54,109.70 L 207.60,110.16 Z" fill="url(#bg0)"/>
+</svg></div>
+    <h1 class="hero-tagline">Every loyalty you've earned, finally home.</h1>
+    <p class="hero-lede">Points, miles, stars, stamps — everything you've been quietly collecting, gathered into one clear view and given one honest worth.</p>
+    <div class="scroll-hint">scroll</div>
+  </div>
+</section>
+
+<section class="idea">
+  <div class="block fade">
+    <div>
+      <span class="label">The idea</span>
+      <h2>Loyalty shouldn't live in twenty apps.</h2>
+      <p>We've all built small, scattered empires of points we never use and rewards we never see — an airline app over here, a supermarket card over there, a hotel tier we keep meaning to check.</p>
+      <p>Confluence brings them into one place, and gives them one shared language: pounds. Nothing clever. Just the honest sum of everything you've patiently earned.</p>
+    </div>
+  </div>
+</section>
+
+<section class="layer-one dark">
+  <div class="block two fade">
+    <div>
+      <span class="label">Layer one · informational</span>
+      <h2>The true weight of everything you've earned.</h2>
+      <p>Airline miles, supermarket points, hotel nights, coffee stamps — each speaks a different dialect. Confluence reads them all and translates them to the only language that really matters: what you could spend.</p>
+      <p>What you've actually earned, in pounds, at the bottom of every ledger.</p>
+    </div>
+    <div class="figure">
+      <div class="fcap">your ledger · example</div>
+      <table>
+        <tbody>
+          <tr><td class="programme">British Airways Avios</td><td class="points">48,200 pts</td><td class="worth">£482.00</td></tr>
+          <tr><td class="programme">Tesco Clubcard</td><td class="points">£38 vouchers</td><td class="worth">£114.00</td></tr>
+          <tr><td class="programme">IHG One Rewards</td><td class="points">62,000 pts</td><td class="worth">£248.00</td></tr>
+          <tr><td class="programme">Starbucks Stars</td><td class="points">138 stars</td><td class="worth">£13.80</td></tr>
+          <tr><td class="programme">Nectar</td><td class="points">9,420 pts</td><td class="worth">£47.10</td></tr>
+          <tr><td class="programme">Uber Rewards</td><td class="points">Platinum</td><td class="worth">£22.00</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="2">Total</td><td class="total">£926.90</td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="layer-two">
+  <div class="block two flip fade">
+    <div>
+      <span class="label">Layer two · insight</span>
+      <h2>And then, the next move.</h2>
+      <p>Points expire quietly. Programmes trade in their own shadows. You can turn 40,000 miles into three hotel nights; three hotel nights into a voucher; a voucher into something you'll actually use.</p>
+      <p>Confluence watches the edges for you, and tells you — calmly, once — when a move is worth making.</p>
+    </div>
+    <div>
+      <div class="insight-card">
+        <div class="dot warn"></div>
+        <div>
+          <p class="title">12,000 Avios expire in 21 days</p>
+          <p class="sub">Worth £120 now. Unused, worth nothing. A short flight to Edinburgh, or the transfer to Nectar, would keep them.</p>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="dot good"></div>
+        <div>
+          <p class="title">IHG → Avios conversion at 1.4×</p>
+          <p class="sub">A quiet arbitrage this week. 40k IHG points become 56k Avios until Sunday — roughly £80 in gained worth.</p>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="dot info"></div>
+        <div>
+          <p class="title">Nectar voucher for John Lewis</p>
+          <p class="sub">Your 9,420 Nectar points can become a £52 John Lewis voucher — £5 more than spending them at a Sainsbury's till.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="coming dark" id="early">
+  <div class="inner">
+    <span class="label fade">Still flowing</span>
+    <h2 class="fade">The rest arrives, layer by layer.</h2>
+    <p class="fade">We're building Confluence slowly, and openly. Family vaults. Automated optimisation. Partner-level visibility across every programme that matters. Each layer arrives when it's ready, and not a day before.</p>
+    <p class="fade" style="margin-top:1.25rem">If you'd like to be there when the first layer opens, leave your email below.</p>
+    <div class="form-line fade">
+      <input type="email" placeholder="your email" aria-label="Email for early access"/>
+      <button type="button" onclick="this.previousElementSibling.value='';this.textContent='thank you — we will be in touch.';this.disabled=true">request access →</button>
+    </div>
+    <p class="form-note fade">no newsletters, no updates you didn't ask for. one email, when we're ready.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <div class="left">
+      <svg aria-hidden="true" viewBox="0 0 400 400" style="width:20px;height:20px;opacity:0.8">
+<path d="M 200 60 L 330 260 L 70 260 Z" fill="none" stroke="rgba(251,248,243,0.55)" stroke-width="16" stroke-linejoin="round"/>
+</svg>
+      <span>confluence</span>
+    </div>
+    <div>a London project · in early exploration · hello@confluence.xyz</div>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js-fade');
+window.addEventListener('DOMContentLoaded',()=>{
+  const nav=document.querySelector('nav');
+  const sections=document.querySelectorAll('section');
+  // Track which section is currently at the top of the viewport and theme nav accordingly
+  const topObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const isDark=entry.target.classList.contains('dark');
+        nav.classList.toggle('over-dark',isDark);
+        nav.classList.toggle('over-light',!isDark);
+      }
+    });
+  },{rootMargin:'-1px 0px -90% 0px',threshold:0});
+  sections.forEach(s=>topObserver.observe(s));
+  // Track whether page is scrolled at all (for subtle dark-nav translucency)
+  const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>80);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+  // Fade-in observer
+  const fadeEls=document.querySelectorAll('.fade');
+  if(!('IntersectionObserver' in window)){fadeEls.forEach(el=>el.classList.add('in'));return}
+  const fio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');fio.unobserve(e.target)}
+  }),{threshold:0.12,rootMargin:'0px 0px -5% 0px'});
+  fadeEls.forEach(el=>fio.observe(el));
+  setTimeout(()=>document.querySelectorAll('.fade:not(.in)').forEach(el=>el.classList.add('in')),2200);
+});
+</script>
+</body>
+</html>
