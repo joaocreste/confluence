@@ -9,7 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
 
-<style>:root{
+<style>
+:root{
   --indigo:#1E1B3A;--iris:#B8A7E0;--sky:#A3BFE8;--apricot:#F2B78F;
   --cream:#FBF8F3;--stone:#D8D4CC;
   --font-display:'Fraunces',Georgia,'Times New Roman',serif;
@@ -18,15 +19,14 @@
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:var(--font-body);font-size:17px;line-height:1.65;
-  background:var(--indigo);
+  background:var(--indigo);color:var(--cream);
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 img,svg{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer}
-h1,h2,h3{font-family:var(--font-display);font-weight:300;letter-spacing:-0.02em;margin:0}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:300;letter-spacing:-0.02em;margin:0}
 
 /* ---------- Section theming ---------- */
-/* default = light section */
 section{
   --bg:var(--cream);
   --text:var(--indigo);
@@ -39,7 +39,6 @@ section{
   color:var(--text);
   padding:10rem 2rem;
 }
-/* dark section override */
 section.dark{
   --bg:var(--indigo);
   --text:var(--cream);
@@ -51,7 +50,7 @@ section.dark{
 }
 section > .inner{max-width:960px;margin:0 auto}
 
-.label{font-size:11px;font-weight:500;letter-spacing:0.16em;color:var(--muted);display:inline-block}
+.label{font-size:11px;font-weight:500;letter-spacing:0.16em;color:var(--muted);display:inline-block;text-transform:lowercase}
 
 .fade{opacity:1;transform:none;transition:opacity 1s ease,transform 1s ease}
 .js-fade .fade{opacity:0;transform:translateY(14px)}
@@ -68,14 +67,17 @@ nav.over-light{background:rgba(251,248,243,0.88);backdrop-filter:blur(10px);
 nav.over-dark.scrolled{background:rgba(30,27,58,0.75);backdrop-filter:blur(10px);
   -webkit-backdrop-filter:blur(10px);border-bottom-color:rgba(255,255,255,0.06)}
 nav .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);
-  font-weight:300;font-size:20px;letter-spacing:-0.012em;color:inherit}
+  font-weight:300;font-size:20px;letter-spacing:-0.012em;color:inherit;
+  background:transparent;border:none;padding:0;cursor:pointer;transition:opacity .3s}
+nav .brand:hover{opacity:0.75}
 nav .brand svg{width:24px;height:24px}
-nav a.cta{font-size:13px;font-weight:500;color:inherit;padding:8px 16px;
-  border:0.5px solid currentColor;border-radius:999px;opacity:0.85;
-  transition:opacity .3s,background .3s,color .3s}
-nav a.cta:hover{opacity:1}
-nav.over-light a.cta:hover{background:var(--indigo);color:var(--cream);border-color:var(--indigo)}
-nav.over-dark a.cta:hover{background:var(--cream);color:var(--indigo);border-color:var(--cream)}
+nav .nav-actions{display:flex;align-items:center;gap:10px}
+nav a.cta,nav button.cta{font-size:13px;font-weight:500;color:inherit;padding:8px 16px;
+  border:0.5px solid currentColor;border-radius:999px;opacity:0.85;background:transparent;
+  transition:opacity .3s,background .3s,color .3s;font-family:var(--font-body)}
+nav a.cta:hover,nav button.cta:hover{opacity:1}
+nav.over-light a.cta:hover,nav.over-light button.cta:hover{background:var(--indigo);color:var(--cream);border-color:var(--indigo)}
+nav.over-dark a.cta:hover,nav.over-dark button.cta:hover{background:var(--cream);color:var(--indigo);border-color:var(--cream)}
 
 /* ---------- Hero ---------- */
 section.hero{padding:9rem 2rem 7rem;text-align:center;max-width:none;
@@ -162,6 +164,264 @@ footer .inner .left{display:flex;align-items:center;gap:10px;font-family:var(--f
   font-weight:300;color:rgba(251,248,243,0.7);font-size:15px}
 footer .inner .left svg{width:20px;height:20px;opacity:0.85}
 
+/* ============================================= */
+/* ============== OVERVIEW VIEW ================ */
+/* ============================================= */
+
+#view-overview{display:none;background:var(--cream);color:var(--indigo);min-height:100vh}
+#view-overview.active{display:block}
+
+/* Overview header */
+.ov-header{background:var(--indigo);color:var(--cream);padding:8rem 2rem 3rem;
+  border-bottom:0.5px solid rgba(255,255,255,0.06)}
+.ov-header .inner{max-width:1080px;margin:0 auto}
+.ov-eyebrow{font-size:11px;font-weight:500;letter-spacing:0.16em;text-transform:lowercase;
+  color:rgba(251,248,243,0.55);display:flex;align-items:center;gap:12px;margin-bottom:1rem}
+.ov-eyebrow .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--iris);
+  animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.35}}
+.ov-title{font-size:clamp(34px,4.2vw,52px);line-height:1.05;letter-spacing:-0.025em;
+  font-weight:300;max-width:22ch;margin:0 0 0.75rem}
+.ov-sub{font-size:17px;color:rgba(251,248,243,0.62);max-width:52ch;margin:0 0 2.75rem;line-height:1.65}
+
+/* Alert */
+.ov-alert{background:rgba(242,183,143,0.08);border:0.5px solid rgba(242,183,143,0.32);
+  border-radius:14px;padding:1.1rem 1.35rem;margin-bottom:2rem;display:flex;gap:14px;
+  align-items:flex-start}
+.ov-alert .alert-mark{width:8px;height:8px;border-radius:50%;background:var(--apricot);
+  margin-top:9px;flex-shrink:0}
+.ov-alert .alert-title{font-family:var(--font-display);font-weight:400;font-size:17px;
+  color:var(--cream);margin:0 0 6px;letter-spacing:-0.01em}
+.ov-alert .alert-line{font-size:13px;color:rgba(251,248,243,0.7);margin:2px 0;line-height:1.55}
+
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:0}
+.kpi{border-radius:14px;padding:1.35rem 1.5rem;
+  background:rgba(255,255,255,0.035);border:0.5px solid rgba(255,255,255,0.12)}
+.kpi.accent{background:rgba(242,183,143,0.06);border-color:rgba(242,183,143,0.24)}
+.kpi-label{font-size:11px;color:rgba(251,248,243,0.55);text-transform:lowercase;
+  letter-spacing:0.14em;margin-bottom:10px;font-weight:500}
+.kpi.accent .kpi-label{color:rgba(242,183,143,0.85)}
+.kpi-value{font-family:var(--font-display);font-size:38px;font-weight:300;
+  line-height:1;letter-spacing:-0.025em;font-variant-numeric:tabular-nums;color:var(--cream)}
+.kpi-sub{font-size:13px;color:rgba(251,248,243,0.55);margin-top:8px}
+.kpi.accent .kpi-sub{color:rgba(242,183,143,0.75)}
+
+/* Tabs */
+.tabs-bar{background:var(--cream);border-bottom:0.5px solid rgba(30,27,58,0.08);
+  position:sticky;top:0;z-index:20}
+.tabs-inner{max-width:1080px;margin:0 auto;padding:0 2rem;display:flex;gap:0.5rem}
+.tab-btn{padding:18px 20px;font-size:13px;font-weight:500;letter-spacing:0.04em;
+  background:none;border:none;border-bottom:1px solid transparent;cursor:pointer;
+  color:rgba(30,27,58,0.5);transition:color .25s,border-color .25s;font-family:var(--font-body)}
+.tab-btn.active{border-bottom-color:var(--indigo);color:var(--indigo)}
+.tab-btn:hover:not(.active){color:rgba(30,27,58,0.8)}
+
+/* Content */
+.ov-content{max-width:1080px;margin:0 auto;padding:3rem 2rem 4rem}
+
+/* Section info */
+.section-info{border-radius:14px;padding:1.15rem 1.35rem;margin-bottom:1.75rem;
+  background:#ffffff;border:0.5px solid rgba(30,27,58,0.1)}
+.section-info-title{font-family:var(--font-display);font-weight:400;font-size:18px;
+  color:var(--indigo);margin-bottom:4px;letter-spacing:-0.01em}
+.section-info-sub{font-size:13px;color:rgba(30,27,58,0.6);line-height:1.55}
+
+/* Charts row */
+.charts-row{display:grid;grid-template-columns:5fr 7fr;gap:14px;margin-bottom:2rem}
+.card{background:#ffffff;border-radius:14px;padding:1.5rem 1.65rem;
+  border:0.5px solid rgba(30,27,58,0.1)}
+.card-title{font-family:var(--font-display);font-weight:400;color:var(--indigo);
+  font-size:16px;margin-bottom:1.25rem;letter-spacing:-0.01em}
+
+/* Donut */
+.donut-wrap{display:flex;justify-content:center;margin-bottom:1.25rem}
+.cat-legend{display:flex;flex-direction:column;gap:10px}
+.cat-row{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.cat-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.cat-name{color:rgba(30,27,58,0.6);display:flex;align-items:center;gap:8px}
+.cat-val{font-family:var(--font-display);font-weight:400;color:var(--indigo);
+  font-variant-numeric:tabular-nums}
+
+/* Bar */
+.bar-chart-svg{width:100%;overflow:visible}
+
+/* Filters */
+.filter-row{display:flex;gap:8px;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap}
+.filter-label{font-size:11px;color:rgba(30,27,58,0.4);margin-right:6px;
+  text-transform:lowercase;letter-spacing:0.14em;font-weight:500}
+.pill{padding:7px 16px;border-radius:999px;font-size:13px;font-weight:500;cursor:pointer;
+  border:0.5px solid rgba(30,27,58,0.15);background:transparent;color:rgba(30,27,58,0.7);
+  transition:all .2s;font-family:var(--font-body)}
+.pill.active{background:var(--indigo);color:var(--cream);border-color:var(--indigo)}
+.pill:hover:not(.active){border-color:rgba(30,27,58,0.4);color:var(--indigo)}
+
+.view-toggle{display:flex;align-items:center;gap:0;background:rgba(30,27,58,0.05);
+  border-radius:999px;padding:3px;border:0.5px solid rgba(30,27,58,0.08);margin-left:auto}
+.toggle-opt{padding:6px 14px;border-radius:999px;font-size:12px;font-weight:500;cursor:pointer;
+  border:none;background:none;color:rgba(30,27,58,0.55);transition:all .2s;font-family:var(--font-body)}
+.toggle-opt.active{background:#ffffff;color:var(--indigo)}
+
+/* Program cards */
+.programs-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.prog-card{background:#ffffff;border-radius:14px;padding:1.35rem 1.5rem;
+  border:0.5px solid rgba(30,27,58,0.1);cursor:pointer;transition:border-color .2s,transform .2s}
+.prog-card:hover{border-color:rgba(30,27,58,0.25)}
+.prog-card.open{border-color:var(--iris)}
+.prog-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem}
+.prog-identity{display:flex;gap:12px;align-items:center}
+.prog-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;
+  justify-content:center;font-size:17px;flex-shrink:0}
+.prog-name{font-weight:500;color:var(--indigo);font-size:14px;line-height:1.3}
+.prog-cat{color:rgba(30,27,58,0.5);font-size:12px;margin-top:3px;text-transform:lowercase;letter-spacing:0.04em}
+.badge{font-size:10px;font-weight:500;padding:4px 10px;border-radius:999px;
+  white-space:nowrap;letter-spacing:0.1em;text-transform:lowercase}
+.badge.active{background:rgba(184,167,224,0.18);color:#6B5AA0;border:0.5px solid rgba(184,167,224,0.5)}
+.badge.expiring{background:rgba(242,183,143,0.2);color:#B36A3F;border:0.5px solid rgba(242,183,143,0.5)}
+.badge.urgent{background:rgba(242,183,143,0.35);color:#8A4520;border:0.5px solid rgba(242,183,143,0.7)}
+.prog-bottom{display:flex;justify-content:space-between;align-items:flex-end}
+.prog-usd{font-family:var(--font-display);font-size:30px;font-weight:300;
+  color:var(--indigo);line-height:1;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.prog-pts{font-size:12px;color:rgba(30,27,58,0.5);margin-top:6px;font-variant-numeric:tabular-nums}
+.prog-right{text-align:right}
+.prog-days{font-size:12px;font-weight:500}
+.prog-days.red{color:#B36A3F}
+.prog-days.amber{color:#8A7520}
+.prog-sync{font-size:11px;color:rgba(30,27,58,0.4);margin-top:4px}
+.prog-toggle{font-size:11px;color:var(--indigo);margin-top:4px;opacity:0.55;
+  text-transform:lowercase;letter-spacing:0.1em}
+.prog-expand{margin-top:1rem;padding-top:1rem;border-top:0.5px solid rgba(30,27,58,0.08)}
+.partners-label{font-size:10px;font-weight:500;color:rgba(30,27,58,0.4);
+  text-transform:lowercase;letter-spacing:0.14em;margin-bottom:10px}
+.partners-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.partner-chip{font-size:11px;background:rgba(30,27,58,0.05);color:var(--indigo);
+  border:0.5px solid rgba(30,27,58,0.1);padding:4px 10px;border-radius:999px;font-weight:400}
+.expiry-note{font-size:12px;color:rgba(30,27,58,0.55);line-height:1.5}
+
+/* Optimizer */
+.opt-list{display:flex;flex-direction:column;gap:14px}
+.opt-card{background:#ffffff;border-radius:14px;padding:1.6rem 1.75rem;
+  border:0.5px solid rgba(30,27,58,0.1);display:flex;gap:20px;justify-content:space-between;
+  align-items:flex-start}
+.opt-left{flex:1;min-width:0}
+.opt-header{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px}
+.opt-title{font-family:var(--font-display);font-weight:400;font-size:20px;
+  color:var(--indigo);letter-spacing:-0.01em}
+.rating-badge{font-size:10px;font-weight:500;padding:3px 10px;border-radius:999px;
+  text-transform:lowercase;letter-spacing:0.1em}
+.rating-badge.exceptional{background:rgba(184,167,224,0.2);color:#6B5AA0;border:0.5px solid rgba(184,167,224,0.5)}
+.rating-badge.good{background:rgba(163,191,232,0.2);color:#4A6799;border:0.5px solid rgba(163,191,232,0.5)}
+.rating-badge.average{background:rgba(242,183,143,0.18);color:#B36A3F;border:0.5px solid rgba(242,183,143,0.45)}
+.afford-badge{font-size:10px;font-weight:500;padding:3px 10px;border-radius:999px;
+  text-transform:lowercase;letter-spacing:0.08em}
+.afford-badge.yes{background:rgba(184,167,224,0.15);color:#6B5AA0;border:0.5px solid rgba(184,167,224,0.4)}
+.afford-badge.no{background:transparent;color:rgba(30,27,58,0.5);border:0.5px solid rgba(30,27,58,0.15)}
+.opt-desc{color:rgba(30,27,58,0.65);font-size:14px;margin-bottom:12px;line-height:1.65}
+.opt-meta{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:rgba(30,27,58,0.6);margin-bottom:8px}
+.prog-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.opt-tip{font-size:12px;color:rgba(30,27,58,0.5);font-style:italic;margin-top:4px;line-height:1.5}
+.opt-right{text-align:right;flex-shrink:0;padding-left:0.5rem;border-left:0.5px solid rgba(30,27,58,0.08);
+  min-width:120px}
+.opt-usd{font-family:var(--font-display);font-size:32px;font-weight:300;
+  color:var(--indigo);line-height:1;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.opt-usd-sub{font-size:11px;color:rgba(30,27,58,0.45);margin-top:4px;
+  text-transform:lowercase;letter-spacing:0.08em;margin-bottom:14px}
+.cpp-pill{background:var(--indigo);color:var(--cream);font-weight:500;padding:6px 14px;
+  border-radius:999px;font-size:12px;display:inline-block;letter-spacing:0.04em}
+
+/* API info box */
+.api-box{margin-top:2rem;background:var(--indigo);color:rgba(251,248,243,0.7);
+  border-radius:14px;padding:1.75rem 2rem;font-size:14px}
+.api-box-title{color:var(--cream);font-family:var(--font-display);font-weight:400;
+  font-size:18px;margin-bottom:10px;letter-spacing:-0.01em}
+.api-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1rem}
+.api-item{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);
+  border-radius:10px;padding:0.85rem 1rem}
+.api-item-label{color:var(--cream);font-weight:500;font-size:12px;margin-bottom:4px}
+.api-item-method{color:rgba(251,248,243,0.5);font-size:12px;line-height:1.5}
+
+/* Expiration */
+.exp-list{display:flex;flex-direction:column;gap:14px}
+.exp-card{border-radius:14px;padding:1.35rem 1.5rem;border:0.5px solid;background:#ffffff}
+.exp-card.critical{background:rgba(242,183,143,0.12);border-color:rgba(242,183,143,0.45)}
+.exp-card.soon{background:rgba(242,183,143,0.06);border-color:rgba(242,183,143,0.28)}
+.exp-card.ok{background:rgba(184,167,224,0.08);border-color:rgba(184,167,224,0.32)}
+.exp-card.none{background:#ffffff;border-color:rgba(30,27,58,0.1)}
+.exp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:1rem}
+.exp-identity{display:flex;align-items:center;gap:14px}
+.exp-icon{font-size:22px}
+.exp-name-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.exp-name{font-weight:500;color:var(--indigo);font-size:15px}
+.exp-urgency{font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:lowercase}
+.exp-urgency.red{color:#B36A3F}
+.exp-urgency.amber{color:#8A7520}
+.exp-urgency.green{color:#6B5AA0}
+.exp-urgency.gray{color:rgba(30,27,58,0.4)}
+.exp-note{font-size:13px;color:rgba(30,27,58,0.55);margin-top:4px}
+.exp-right{text-align:right}
+.exp-usd{font-family:var(--font-display);font-size:26px;font-weight:300;
+  color:var(--indigo);line-height:1;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.exp-pts{font-size:11px;color:rgba(30,27,58,0.45);margin-top:3px}
+.exp-days{font-size:12px;font-weight:500;margin-top:3px}
+.exp-days.red{color:#B36A3F}
+.exp-days.amber{color:#8A7520}
+.bar-track{height:4px;background:rgba(30,27,58,0.08);border-radius:999px;overflow:hidden;margin-top:6px}
+.bar-fill{height:100%;border-radius:999px;transition:width .3s}
+.bar-dates{display:flex;justify-content:space-between;font-size:11px;
+  color:rgba(30,27,58,0.45);margin-top:6px;letter-spacing:0.04em}
+.action-tip{margin-top:12px;background:rgba(242,183,143,0.12);
+  border:0.5px solid rgba(242,183,143,0.35);border-radius:10px;padding:10px 14px;
+  font-size:13px;color:#8A4520;font-weight:400;line-height:1.5}
+
+/* Overview footer uses global footer */
+.ov-foot{max-width:1080px;margin:0 auto;padding:0 2rem 2.5rem}
+.ov-foot-line{border-top:0.5px solid rgba(30,27,58,0.08);padding-top:1.25rem;
+  display:flex;justify-content:space-between;font-size:12px;color:rgba(30,27,58,0.45);
+  flex-wrap:wrap;gap:0.5rem}
+
+/* ============================================= */
+/* ============== LOGIN MODAL ================== */
+/* ============================================= */
+.modal-backdrop{position:fixed;inset:0;background:rgba(30,27,58,0.7);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:1.5rem;
+  opacity:0;transition:opacity .3s}
+.modal-backdrop.open{display:flex;opacity:1}
+.modal{background:var(--cream);color:var(--indigo);border-radius:16px;
+  padding:2.5rem 2.5rem 2rem;max-width:400px;width:100%;
+  box-shadow:0 40px 80px rgba(0,0,0,0.35);border:0.5px solid rgba(30,27,58,0.08);
+  transform:translateY(10px);transition:transform .3s}
+.modal-backdrop.open .modal{transform:translateY(0)}
+.modal h3{font-family:var(--font-display);font-weight:300;font-size:28px;
+  letter-spacing:-0.02em;margin-bottom:0.5rem}
+.modal .modal-sub{font-size:14px;color:rgba(30,27,58,0.6);margin-bottom:1.75rem;line-height:1.55}
+.modal-field{margin-bottom:1rem}
+.modal-field label{display:block;font-size:11px;color:rgba(30,27,58,0.5);
+  text-transform:lowercase;letter-spacing:0.14em;font-weight:500;margin-bottom:6px}
+.modal-field input{width:100%;background:transparent;border:none;border-bottom:0.5px solid rgba(30,27,58,0.2);
+  font-family:var(--font-body);font-size:16px;color:var(--indigo);padding:10px 0;outline:none;
+  transition:border-color .2s}
+.modal-field input:focus{border-bottom-color:var(--indigo)}
+.modal-actions{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.75rem}
+.modal-error{font-size:12px;color:#B36A3F;min-height:16px;font-style:italic}
+.modal-submit{background:var(--indigo);color:var(--cream);border:none;padding:11px 22px;
+  border-radius:999px;font-size:13px;font-weight:500;letter-spacing:0.04em;
+  font-family:var(--font-body);cursor:pointer;transition:opacity .2s}
+.modal-submit:hover{opacity:0.85}
+.modal-close{position:absolute;top:1.25rem;right:1.5rem;background:none;border:none;
+  font-size:22px;color:rgba(30,27,58,0.4);cursor:pointer;line-height:1}
+.modal-close:hover{color:var(--indigo)}
+.modal-hint{font-size:11px;color:rgba(30,27,58,0.4);margin-top:1.5rem;font-style:italic;
+  text-align:center;letter-spacing:0.04em}
+
+@media(max-width:820px){
+  .charts-row,.programs-grid,.api-grid,.kpi-grid{grid-template-columns:1fr}
+  .opt-card{flex-direction:column;align-items:stretch}
+  .opt-right{text-align:left;border-left:none;border-top:0.5px solid rgba(30,27,58,0.08);
+    padding-left:0;padding-top:1rem;margin-top:0.5rem}
+  .ov-header{padding:6rem 1.5rem 2rem}
+  .tabs-inner,.ov-content,.ov-foot{padding-left:1.5rem;padding-right:1.5rem}
+}
 @media(max-width:640px){
   section{padding:6rem 1.5rem}
   section.hero{padding:7rem 1.5rem 5rem}
@@ -171,126 +431,72 @@ footer .inner .left svg{width:20px;height:20px;opacity:0.85}
   nav .brand svg{width:20px;height:20px}
   .block.two{gap:3rem}
   .figure{padding:1.5rem}
+  .tab-btn{padding:14px 14px;font-size:12px}
+  .kpi-value{font-size:30px}
 }
 </style>
 </head>
 <body>
 
-<nav class="over-dark">
-  <div class="brand">
-    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Confluence">
-<title>Confluence</title>
+<!-- ============================================= -->
+<!-- Shared SVG symbols -->
+<!-- ============================================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <defs>
 <linearGradient id="bg0" gradientUnits="userSpaceOnUse" x1="252.90" y1="102.21" x2="88.86" y2="203.08">
-<stop offset="0.0%" stop-color="#f4f0f8"/>
-<stop offset="8.3%" stop-color="#efeaf4"/>
-<stop offset="16.7%" stop-color="#e1d9eb"/>
-<stop offset="25.0%" stop-color="#cbc0e2"/>
-<stop offset="33.3%" stop-color="#a695d3"/>
-<stop offset="41.7%" stop-color="#8372ba"/>
-<stop offset="50.0%" stop-color="#625597"/>
-<stop offset="58.3%" stop-color="#443c6c"/>
-<stop offset="66.7%" stop-color="#2c274d"/>
-<stop offset="75.0%" stop-color="#191734"/>
-<stop offset="83.3%" stop-color="#0e0c26"/>
-<stop offset="91.7%" stop-color="#07061d"/>
+<stop offset="0.0%" stop-color="#f4f0f8"/><stop offset="8.3%" stop-color="#efeaf4"/>
+<stop offset="16.7%" stop-color="#e1d9eb"/><stop offset="25.0%" stop-color="#cbc0e2"/>
+<stop offset="33.3%" stop-color="#a695d3"/><stop offset="41.7%" stop-color="#8372ba"/>
+<stop offset="50.0%" stop-color="#625597"/><stop offset="58.3%" stop-color="#443c6c"/>
+<stop offset="66.7%" stop-color="#2c274d"/><stop offset="75.0%" stop-color="#191734"/>
+<stop offset="83.3%" stop-color="#0e0c26"/><stop offset="91.7%" stop-color="#07061d"/>
 <stop offset="100.0%" stop-color="#05041a"/>
 </linearGradient>
 <linearGradient id="bg1" gradientUnits="userSpaceOnUse" x1="88.86" y1="203.08" x2="258.23" y2="294.71">
-<stop offset="0.0%" stop-color="#05041a"/>
-<stop offset="8.3%" stop-color="#07061d"/>
-<stop offset="16.7%" stop-color="#0e0c26"/>
-<stop offset="25.0%" stop-color="#191734"/>
-<stop offset="33.3%" stop-color="#2c274d"/>
-<stop offset="41.7%" stop-color="#443c6c"/>
-<stop offset="50.0%" stop-color="#625597"/>
-<stop offset="58.3%" stop-color="#8372ba"/>
-<stop offset="66.7%" stop-color="#a695d3"/>
-<stop offset="75.0%" stop-color="#cbc0e2"/>
-<stop offset="83.3%" stop-color="#e1d9eb"/>
-<stop offset="91.7%" stop-color="#efeaf4"/>
+<stop offset="0.0%" stop-color="#05041a"/><stop offset="8.3%" stop-color="#07061d"/>
+<stop offset="16.7%" stop-color="#0e0c26"/><stop offset="25.0%" stop-color="#191734"/>
+<stop offset="33.3%" stop-color="#2c274d"/><stop offset="41.7%" stop-color="#443c6c"/>
+<stop offset="50.0%" stop-color="#625597"/><stop offset="58.3%" stop-color="#8372ba"/>
+<stop offset="66.7%" stop-color="#a695d3"/><stop offset="75.0%" stop-color="#cbc0e2"/>
+<stop offset="83.3%" stop-color="#e1d9eb"/><stop offset="91.7%" stop-color="#efeaf4"/>
 <stop offset="100.0%" stop-color="#f4f0f8"/>
 </linearGradient>
 <linearGradient id="bg2" gradientUnits="userSpaceOnUse" x1="258.23" y1="294.71" x2="252.90" y2="102.21">
-<stop offset="0.0%" stop-color="#f4f0f8"/>
-<stop offset="8.3%" stop-color="#efeaf4"/>
-<stop offset="16.7%" stop-color="#e1d9eb"/>
-<stop offset="25.0%" stop-color="#cbc0e2"/>
-<stop offset="33.3%" stop-color="#a695d3"/>
-<stop offset="41.7%" stop-color="#8372ba"/>
-<stop offset="50.0%" stop-color="#625597"/>
-<stop offset="58.3%" stop-color="#443c6c"/>
-<stop offset="66.7%" stop-color="#2c274d"/>
-<stop offset="75.0%" stop-color="#191734"/>
-<stop offset="83.3%" stop-color="#0e0c26"/>
-<stop offset="91.7%" stop-color="#07061d"/>
+<stop offset="0.0%" stop-color="#f4f0f8"/><stop offset="8.3%" stop-color="#efeaf4"/>
+<stop offset="16.7%" stop-color="#e1d9eb"/><stop offset="25.0%" stop-color="#cbc0e2"/>
+<stop offset="33.3%" stop-color="#a695d3"/><stop offset="41.7%" stop-color="#8372ba"/>
+<stop offset="50.0%" stop-color="#625597"/><stop offset="58.3%" stop-color="#443c6c"/>
+<stop offset="66.7%" stop-color="#2c274d"/><stop offset="75.0%" stop-color="#191734"/>
+<stop offset="83.3%" stop-color="#0e0c26"/><stop offset="91.7%" stop-color="#07061d"/>
 <stop offset="100.0%" stop-color="#05041a"/>
 </linearGradient>
-</defs>
+<symbol id="confluence-mark" viewBox="0 0 400 400">
 <path d="M 242.46,337.92 L 246.86,339.38 L 251.34,340.56 L 255.88,341.48 L 260.46,342.11 L 265.06,342.46 L 269.67,342.53 L 274.25,342.33 L 278.80,341.84 L 283.30,341.09 L 287.73,340.07 L 292.06,338.78 L 323.18,265.66 L 321.90,263.30 L 320.56,260.95 L 319.16,258.61 L 317.71,256.28 L 316.19,253.96 L 314.62,251.65 L 313.00,249.35 L 311.33,247.06 L 309.61,244.78 L 307.84,242.50 L 306.02,240.23 L 304.16,237.98 L 302.26,235.72 L 300.33,233.48 L 298.35,231.24 L 296.34,229.01 L 294.30,226.78 L 292.23,224.56 L 290.14,222.34 L 288.01,220.13 L 285.87,217.92 L 283.71,215.71 L 281.53,213.51 L 279.34,211.31 L 277.14,209.11 L 274.93,206.91 L 272.71,204.72 L 270.50,202.52 L 268.28,200.33 L 266.06,198.13 L 263.85,195.93 L 261.65,193.73 L 259.46,191.53 L 257.28,189.33 L 255.12,187.12 L 252.98,184.92 L 250.86,182.70 L 248.76,180.49 L 246.69,178.26 L 244.65,176.04 L 242.64,173.80 L 240.66,171.57 L 238.73,169.32 L 236.83,167.07 L 234.97,164.81 L 233.15,162.54 L 231.38,160.27 L 229.66,157.99 L 227.99,155.69 L 226.37,153.39 L 224.80,151.08 L 223.29,148.76 L 221.83,146.43 L 220.43,144.10 L 219.09,141.75 L 217.81,139.38 L 216.60,137.01 L 215.44,134.63 L 214.35,132.24 L 213.33,129.83 L 212.38,127.41 L 211.49,124.98 L 210.67,122.54 L 209.91,120.09 L 209.23,117.63 L 208.62,115.15 L 208.07,112.66 L 207.60,110.16 L 298.21,94.27 L 298.62,96.78 L 298.95,99.31 L 299.22,101.85 L 299.41,104.40 L 299.54,106.96 L 299.60,109.53 L 299.59,112.12 L 299.51,114.72 L 299.37,117.33 L 299.16,119.95 L 298.89,122.58 L 298.55,125.23 L 298.15,127.88 L 297.69,130.55 L 297.17,133.22 L 296.60,135.91 L 295.96,138.60 L 295.27,141.31 L 294.53,144.02 L 293.74,146.75 L 292.90,149.48 L 292.00,152.22 L 291.07,154.97 L 290.09,157.73 L 289.07,160.49 L 288.01,163.26 L 286.92,166.04 L 285.79,168.82 L 284.63,171.61 L 283.44,174.40 L 282.22,177.20 L 280.98,180.00 L 279.72,182.81 L 278.43,185.62 L 277.14,188.43 L 275.82,191.25 L 274.50,194.07 L 273.17,196.88 L 271.83,199.70 L 270.50,202.52 L 269.16,205.34 L 267.82,208.16 L 266.49,210.98 L 265.17,213.80 L 263.85,216.61 L 262.56,219.42 L 261.28,222.23 L 260.01,225.04 L 258.77,227.84 L 257.55,230.64 L 256.36,233.43 L 255.20,236.22 L 254.07,239.01 L 252.98,241.78 L 251.92,244.55 L 250.90,247.32 L 249.92,250.07 L 248.99,252.82 L 248.10,255.56 L 247.25,258.30 L 246.46,261.02 L 245.72,263.73 L 245.03,266.44 L 244.39,269.14 L 243.82,271.82 L 243.30,274.50 L 242.84,277.16 L 242.44,279.82 L 279.56,256.17 L 278.85,255.53 L 278.20,254.93 L 277.60,254.36 L 277.06,253.83 L 276.57,253.34 L 276.10,252.91 L 275.67,252.52 L 275.25,252.19 L 274.84,251.91 L 274.43,251.68 L 274.01,251.50 Z" fill="url(#bg2)"/>
 <path d="M 118.40,238.34 L 118.03,238.62 L 117.63,238.86 L 117.18,239.07 L 116.68,239.27 L 116.13,239.45 L 115.52,239.64 L 114.85,239.83 L 114.12,240.03 L 113.33,240.26 L 112.48,240.52 L 111.57,240.82 L 109.66,196.84 L 111.76,198.52 L 113.83,200.25 L 115.89,202.04 L 117.93,203.88 L 119.95,205.78 L 121.95,207.73 L 123.93,209.73 L 125.89,211.77 L 127.83,213.87 L 129.76,216.01 L 131.68,218.20 L 133.57,220.42 L 135.46,222.69 L 137.33,224.99 L 139.18,227.33 L 141.03,229.70 L 142.86,232.10 L 144.69,234.52 L 146.50,236.98 L 148.31,239.45 L 150.11,241.95 L 151.90,244.46 L 153.69,246.99 L 155.47,249.54 L 157.25,252.09 L 159.02,254.65 L 160.80,257.22 L 162.57,259.79 L 164.34,262.36 L 166.11,264.93 L 167.89,267.49 L 169.67,270.04 L 171.45,272.58 L 173.24,275.12 L 175.03,277.63 L 176.83,280.13 L 178.63,282.60 L 180.45,285.06 L 182.27,287.48 L 184.11,289.88 L 185.95,292.25 L 187.81,294.59 L 189.68,296.89 L 191.56,299.16 L 193.46,301.38 L 195.37,303.57 L 197.30,305.71 L 199.25,307.80 L 201.21,309.85 L 203.19,311.85 L 205.19,313.80 L 207.21,315.70 L 209.24,317.54 L 211.30,319.33 L 213.38,321.06 L 215.48,322.74 L 217.60,324.35 L 219.75,325.90 L 221.91,327.39 L 224.10,328.82 L 226.31,330.19 L 228.55,331.49 L 230.81,332.73 L 233.09,333.90 L 235.40,335.00 L 237.73,336.04 L 240.08,337.02 L 242.46,337.92 L 274.01,251.50 L 271.60,250.66 L 269.18,249.89 L 266.72,249.18 L 264.25,248.54 L 261.75,247.96 L 259.22,247.46 L 256.67,247.01 L 254.10,246.63 L 251.51,246.31 L 248.89,246.06 L 246.25,245.87 L 243.59,245.73 L 240.91,245.66 L 238.20,245.64 L 235.47,245.69 L 232.73,245.78 L 229.96,245.93 L 227.18,246.14 L 224.38,246.39 L 221.55,246.70 L 218.72,247.05 L 215.86,247.44 L 212.99,247.88 L 210.11,248.36 L 207.21,248.88 L 204.29,249.43 L 201.37,250.02 L 198.43,250.65 L 195.48,251.30 L 192.52,251.98 L 189.55,252.69 L 186.58,253.42 L 183.59,254.17 L 180.60,254.94 L 177.60,255.72 L 174.60,256.52 L 171.60,257.33 L 168.59,258.15 L 165.58,258.97 L 162.57,259.79 L 159.56,260.61 L 156.55,261.43 L 153.54,262.25 L 150.53,263.06 L 147.53,263.85 L 144.54,264.64 L 141.55,265.41 L 138.56,266.16 L 135.58,266.89 L 132.62,267.60 L 129.66,268.28 L 126.71,268.93 L 123.77,269.55 L 120.84,270.15 L 117.93,270.70 L 115.03,271.22 L 112.14,271.70 L 109.27,272.14 L 106.42,272.53 L 103.58,272.88 L 100.76,273.19 L 97.96,273.44 L 95.17,273.64 L 92.41,273.80 L 89.66,273.89 L 86.94,273.93 L 84.23,273.92 L 81.55,273.85 L 33.78,210.33 L 34.84,205.94 L 36.16,201.60 L 37.76,197.32 L 39.61,193.14 L 41.73,189.07 L 44.09,185.12 L 46.70,181.31 L 49.54,177.66 L 52.60,174.18 L 55.86,170.90 L 59.33,167.81 Z" fill="url(#bg1)"/>
 <path d="M 298.21,94.27 L 297.27,89.73 L 296.06,85.25 L 294.58,80.87 L 292.84,76.58 L 290.84,72.42 L 288.61,68.40 L 286.13,64.53 L 283.44,60.83 L 280.54,57.31 L 277.44,53.99 L 274.16,50.88 L 195.27,60.49 L 193.87,62.78 L 192.50,65.12 L 191.18,67.50 L 189.89,69.92 L 188.64,72.39 L 187.42,74.91 L 186.24,77.46 L 185.09,80.06 L 183.97,82.69 L 182.89,85.36 L 181.83,88.07 L 180.81,90.80 L 179.81,93.57 L 178.83,96.38 L 177.88,99.21 L 176.95,102.06 L 176.04,104.94 L 175.15,107.85 L 174.28,110.77 L 173.42,113.71 L 172.58,116.67 L 171.75,119.65 L 170.93,122.63 L 170.12,125.63 L 169.32,128.64 L 168.52,131.65 L 167.73,134.67 L 166.94,137.69 L 166.14,140.71 L 165.35,143.72 L 164.55,146.74 L 163.75,149.74 L 162.94,152.74 L 162.12,155.73 L 161.29,158.70 L 160.45,161.66 L 159.59,164.61 L 158.72,167.53 L 157.83,170.43 L 156.92,173.32 L 155.99,176.17 L 155.04,179.00 L 154.07,181.80 L 153.07,184.57 L 152.04,187.31 L 150.98,190.02 L 149.90,192.69 L 148.78,195.32 L 147.64,197.91 L 146.45,200.47 L 145.24,202.98 L 143.99,205.45 L 142.70,207.88 L 141.37,210.26 L 140.01,212.59 L 138.60,214.88 L 137.15,217.12 L 135.67,219.31 L 134.14,221.45 L 132.57,223.54 L 130.95,225.58 L 129.29,227.56 L 127.59,229.49 L 125.84,231.37 L 124.05,233.19 L 122.21,234.96 L 120.33,236.68 L 118.40,238.34 L 59.33,167.81 L 61.30,166.20 L 63.32,164.65 L 65.39,163.15 L 67.50,161.71 L 69.65,160.32 L 71.85,158.98 L 74.10,157.69 L 76.39,156.46 L 78.72,155.28 L 81.09,154.15 L 83.51,153.07 L 85.97,152.04 L 88.47,151.06 L 91.00,150.12 L 93.58,149.23 L 96.20,148.39 L 98.85,147.59 L 101.54,146.84 L 104.26,146.12 L 107.01,145.45 L 109.80,144.81 L 112.62,144.21 L 115.47,143.65 L 118.35,143.12 L 121.25,142.62 L 124.18,142.15 L 127.13,141.71 L 130.11,141.29 L 133.10,140.91 L 136.12,140.54 L 139.15,140.19 L 142.19,139.87 L 145.26,139.56 L 148.33,139.26 L 151.42,138.98 L 154.51,138.71 L 157.61,138.45 L 160.72,138.19 L 163.83,137.94 L 166.94,137.69 L 170.05,137.44 L 173.16,137.19 L 176.26,136.93 L 179.36,136.67 L 182.46,136.39 L 185.54,136.11 L 188.62,135.82 L 191.68,135.51 L 194.73,135.18 L 197.76,134.84 L 200.77,134.47 L 203.77,134.08 L 206.74,133.67 L 209.70,133.23 L 212.62,132.76 L 215.53,132.26 L 218.40,131.73 L 221.25,131.17 L 224.07,130.57 L 226.86,129.93 L 229.61,129.26 L 232.34,128.54 L 235.02,127.78 L 237.68,126.99 L 240.29,126.14 L 242.87,125.25 L 245.41,124.32 L 247.91,123.34 L 208.86,103.01 L 208.67,103.95 L 208.47,104.82 L 208.27,105.61 L 208.08,106.35 L 207.91,107.02 L 207.77,107.64 L 207.65,108.21 L 207.57,108.74 L 207.54,109.23 L 207.54,109.70 L 207.60,110.16 Z" fill="url(#bg0)"/>
+</symbol>
+</defs>
 </svg>
+
+<!-- ============================================= -->
+<!-- LANDING VIEW                                  -->
+<!-- ============================================= -->
+<div id="view-landing">
+
+<nav class="over-dark" id="landing-nav">
+  <button type="button" class="brand" onclick="goHome()" aria-label="Confluence — home">
+    <svg aria-hidden="true" role="img"><use href="#confluence-mark"/></svg>
     <span>confluence</span>
+  </button>
+  <div class="nav-actions">
+    <button type="button" class="cta" onclick="openLogin()">Login</button>
+    <a href="#early" class="cta">Early access</a>
   </div>
-  <a href="#early" class="cta">Early access</a>
 </nav>
 
 <section class="hero dark">
   <div class="inner">
-    <div class="hero-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Confluence">
-<title>Confluence</title>
-<defs>
-<linearGradient id="bg0" gradientUnits="userSpaceOnUse" x1="252.90" y1="102.21" x2="88.86" y2="203.08">
-<stop offset="0.0%" stop-color="#f4f0f8"/>
-<stop offset="8.3%" stop-color="#efeaf4"/>
-<stop offset="16.7%" stop-color="#e1d9eb"/>
-<stop offset="25.0%" stop-color="#cbc0e2"/>
-<stop offset="33.3%" stop-color="#a695d3"/>
-<stop offset="41.7%" stop-color="#8372ba"/>
-<stop offset="50.0%" stop-color="#625597"/>
-<stop offset="58.3%" stop-color="#443c6c"/>
-<stop offset="66.7%" stop-color="#2c274d"/>
-<stop offset="75.0%" stop-color="#191734"/>
-<stop offset="83.3%" stop-color="#0e0c26"/>
-<stop offset="91.7%" stop-color="#07061d"/>
-<stop offset="100.0%" stop-color="#05041a"/>
-</linearGradient>
-<linearGradient id="bg1" gradientUnits="userSpaceOnUse" x1="88.86" y1="203.08" x2="258.23" y2="294.71">
-<stop offset="0.0%" stop-color="#05041a"/>
-<stop offset="8.3%" stop-color="#07061d"/>
-<stop offset="16.7%" stop-color="#0e0c26"/>
-<stop offset="25.0%" stop-color="#191734"/>
-<stop offset="33.3%" stop-color="#2c274d"/>
-<stop offset="41.7%" stop-color="#443c6c"/>
-<stop offset="50.0%" stop-color="#625597"/>
-<stop offset="58.3%" stop-color="#8372ba"/>
-<stop offset="66.7%" stop-color="#a695d3"/>
-<stop offset="75.0%" stop-color="#cbc0e2"/>
-<stop offset="83.3%" stop-color="#e1d9eb"/>
-<stop offset="91.7%" stop-color="#efeaf4"/>
-<stop offset="100.0%" stop-color="#f4f0f8"/>
-</linearGradient>
-<linearGradient id="bg2" gradientUnits="userSpaceOnUse" x1="258.23" y1="294.71" x2="252.90" y2="102.21">
-<stop offset="0.0%" stop-color="#f4f0f8"/>
-<stop offset="8.3%" stop-color="#efeaf4"/>
-<stop offset="16.7%" stop-color="#e1d9eb"/>
-<stop offset="25.0%" stop-color="#cbc0e2"/>
-<stop offset="33.3%" stop-color="#a695d3"/>
-<stop offset="41.7%" stop-color="#8372ba"/>
-<stop offset="50.0%" stop-color="#625597"/>
-<stop offset="58.3%" stop-color="#443c6c"/>
-<stop offset="66.7%" stop-color="#2c274d"/>
-<stop offset="75.0%" stop-color="#191734"/>
-<stop offset="83.3%" stop-color="#0e0c26"/>
-<stop offset="91.7%" stop-color="#07061d"/>
-<stop offset="100.0%" stop-color="#05041a"/>
-</linearGradient>
-</defs>
-<path d="M 242.46,337.92 L 246.86,339.38 L 251.34,340.56 L 255.88,341.48 L 260.46,342.11 L 265.06,342.46 L 269.67,342.53 L 274.25,342.33 L 278.80,341.84 L 283.30,341.09 L 287.73,340.07 L 292.06,338.78 L 323.18,265.66 L 321.90,263.30 L 320.56,260.95 L 319.16,258.61 L 317.71,256.28 L 316.19,253.96 L 314.62,251.65 L 313.00,249.35 L 311.33,247.06 L 309.61,244.78 L 307.84,242.50 L 306.02,240.23 L 304.16,237.98 L 302.26,235.72 L 300.33,233.48 L 298.35,231.24 L 296.34,229.01 L 294.30,226.78 L 292.23,224.56 L 290.14,222.34 L 288.01,220.13 L 285.87,217.92 L 283.71,215.71 L 281.53,213.51 L 279.34,211.31 L 277.14,209.11 L 274.93,206.91 L 272.71,204.72 L 270.50,202.52 L 268.28,200.33 L 266.06,198.13 L 263.85,195.93 L 261.65,193.73 L 259.46,191.53 L 257.28,189.33 L 255.12,187.12 L 252.98,184.92 L 250.86,182.70 L 248.76,180.49 L 246.69,178.26 L 244.65,176.04 L 242.64,173.80 L 240.66,171.57 L 238.73,169.32 L 236.83,167.07 L 234.97,164.81 L 233.15,162.54 L 231.38,160.27 L 229.66,157.99 L 227.99,155.69 L 226.37,153.39 L 224.80,151.08 L 223.29,148.76 L 221.83,146.43 L 220.43,144.10 L 219.09,141.75 L 217.81,139.38 L 216.60,137.01 L 215.44,134.63 L 214.35,132.24 L 213.33,129.83 L 212.38,127.41 L 211.49,124.98 L 210.67,122.54 L 209.91,120.09 L 209.23,117.63 L 208.62,115.15 L 208.07,112.66 L 207.60,110.16 L 298.21,94.27 L 298.62,96.78 L 298.95,99.31 L 299.22,101.85 L 299.41,104.40 L 299.54,106.96 L 299.60,109.53 L 299.59,112.12 L 299.51,114.72 L 299.37,117.33 L 299.16,119.95 L 298.89,122.58 L 298.55,125.23 L 298.15,127.88 L 297.69,130.55 L 297.17,133.22 L 296.60,135.91 L 295.96,138.60 L 295.27,141.31 L 294.53,144.02 L 293.74,146.75 L 292.90,149.48 L 292.00,152.22 L 291.07,154.97 L 290.09,157.73 L 289.07,160.49 L 288.01,163.26 L 286.92,166.04 L 285.79,168.82 L 284.63,171.61 L 283.44,174.40 L 282.22,177.20 L 280.98,180.00 L 279.72,182.81 L 278.43,185.62 L 277.14,188.43 L 275.82,191.25 L 274.50,194.07 L 273.17,196.88 L 271.83,199.70 L 270.50,202.52 L 269.16,205.34 L 267.82,208.16 L 266.49,210.98 L 265.17,213.80 L 263.85,216.61 L 262.56,219.42 L 261.28,222.23 L 260.01,225.04 L 258.77,227.84 L 257.55,230.64 L 256.36,233.43 L 255.20,236.22 L 254.07,239.01 L 252.98,241.78 L 251.92,244.55 L 250.90,247.32 L 249.92,250.07 L 248.99,252.82 L 248.10,255.56 L 247.25,258.30 L 246.46,261.02 L 245.72,263.73 L 245.03,266.44 L 244.39,269.14 L 243.82,271.82 L 243.30,274.50 L 242.84,277.16 L 242.44,279.82 L 279.56,256.17 L 278.85,255.53 L 278.20,254.93 L 277.60,254.36 L 277.06,253.83 L 276.57,253.34 L 276.10,252.91 L 275.67,252.52 L 275.25,252.19 L 274.84,251.91 L 274.43,251.68 L 274.01,251.50 Z" fill="url(#bg2)"/>
-<path d="M 118.40,238.34 L 118.03,238.62 L 117.63,238.86 L 117.18,239.07 L 116.68,239.27 L 116.13,239.45 L 115.52,239.64 L 114.85,239.83 L 114.12,240.03 L 113.33,240.26 L 112.48,240.52 L 111.57,240.82 L 109.66,196.84 L 111.76,198.52 L 113.83,200.25 L 115.89,202.04 L 117.93,203.88 L 119.95,205.78 L 121.95,207.73 L 123.93,209.73 L 125.89,211.77 L 127.83,213.87 L 129.76,216.01 L 131.68,218.20 L 133.57,220.42 L 135.46,222.69 L 137.33,224.99 L 139.18,227.33 L 141.03,229.70 L 142.86,232.10 L 144.69,234.52 L 146.50,236.98 L 148.31,239.45 L 150.11,241.95 L 151.90,244.46 L 153.69,246.99 L 155.47,249.54 L 157.25,252.09 L 159.02,254.65 L 160.80,257.22 L 162.57,259.79 L 164.34,262.36 L 166.11,264.93 L 167.89,267.49 L 169.67,270.04 L 171.45,272.58 L 173.24,275.12 L 175.03,277.63 L 176.83,280.13 L 178.63,282.60 L 180.45,285.06 L 182.27,287.48 L 184.11,289.88 L 185.95,292.25 L 187.81,294.59 L 189.68,296.89 L 191.56,299.16 L 193.46,301.38 L 195.37,303.57 L 197.30,305.71 L 199.25,307.80 L 201.21,309.85 L 203.19,311.85 L 205.19,313.80 L 207.21,315.70 L 209.24,317.54 L 211.30,319.33 L 213.38,321.06 L 215.48,322.74 L 217.60,324.35 L 219.75,325.90 L 221.91,327.39 L 224.10,328.82 L 226.31,330.19 L 228.55,331.49 L 230.81,332.73 L 233.09,333.90 L 235.40,335.00 L 237.73,336.04 L 240.08,337.02 L 242.46,337.92 L 274.01,251.50 L 271.60,250.66 L 269.18,249.89 L 266.72,249.18 L 264.25,248.54 L 261.75,247.96 L 259.22,247.46 L 256.67,247.01 L 254.10,246.63 L 251.51,246.31 L 248.89,246.06 L 246.25,245.87 L 243.59,245.73 L 240.91,245.66 L 238.20,245.64 L 235.47,245.69 L 232.73,245.78 L 229.96,245.93 L 227.18,246.14 L 224.38,246.39 L 221.55,246.70 L 218.72,247.05 L 215.86,247.44 L 212.99,247.88 L 210.11,248.36 L 207.21,248.88 L 204.29,249.43 L 201.37,250.02 L 198.43,250.65 L 195.48,251.30 L 192.52,251.98 L 189.55,252.69 L 186.58,253.42 L 183.59,254.17 L 180.60,254.94 L 177.60,255.72 L 174.60,256.52 L 171.60,257.33 L 168.59,258.15 L 165.58,258.97 L 162.57,259.79 L 159.56,260.61 L 156.55,261.43 L 153.54,262.25 L 150.53,263.06 L 147.53,263.85 L 144.54,264.64 L 141.55,265.41 L 138.56,266.16 L 135.58,266.89 L 132.62,267.60 L 129.66,268.28 L 126.71,268.93 L 123.77,269.55 L 120.84,270.15 L 117.93,270.70 L 115.03,271.22 L 112.14,271.70 L 109.27,272.14 L 106.42,272.53 L 103.58,272.88 L 100.76,273.19 L 97.96,273.44 L 95.17,273.64 L 92.41,273.80 L 89.66,273.89 L 86.94,273.93 L 84.23,273.92 L 81.55,273.85 L 33.78,210.33 L 34.84,205.94 L 36.16,201.60 L 37.76,197.32 L 39.61,193.14 L 41.73,189.07 L 44.09,185.12 L 46.70,181.31 L 49.54,177.66 L 52.60,174.18 L 55.86,170.90 L 59.33,167.81 Z" fill="url(#bg1)"/>
-<path d="M 298.21,94.27 L 297.27,89.73 L 296.06,85.25 L 294.58,80.87 L 292.84,76.58 L 290.84,72.42 L 288.61,68.40 L 286.13,64.53 L 283.44,60.83 L 280.54,57.31 L 277.44,53.99 L 274.16,50.88 L 195.27,60.49 L 193.87,62.78 L 192.50,65.12 L 191.18,67.50 L 189.89,69.92 L 188.64,72.39 L 187.42,74.91 L 186.24,77.46 L 185.09,80.06 L 183.97,82.69 L 182.89,85.36 L 181.83,88.07 L 180.81,90.80 L 179.81,93.57 L 178.83,96.38 L 177.88,99.21 L 176.95,102.06 L 176.04,104.94 L 175.15,107.85 L 174.28,110.77 L 173.42,113.71 L 172.58,116.67 L 171.75,119.65 L 170.93,122.63 L 170.12,125.63 L 169.32,128.64 L 168.52,131.65 L 167.73,134.67 L 166.94,137.69 L 166.14,140.71 L 165.35,143.72 L 164.55,146.74 L 163.75,149.74 L 162.94,152.74 L 162.12,155.73 L 161.29,158.70 L 160.45,161.66 L 159.59,164.61 L 158.72,167.53 L 157.83,170.43 L 156.92,173.32 L 155.99,176.17 L 155.04,179.00 L 154.07,181.80 L 153.07,184.57 L 152.04,187.31 L 150.98,190.02 L 149.90,192.69 L 148.78,195.32 L 147.64,197.91 L 146.45,200.47 L 145.24,202.98 L 143.99,205.45 L 142.70,207.88 L 141.37,210.26 L 140.01,212.59 L 138.60,214.88 L 137.15,217.12 L 135.67,219.31 L 134.14,221.45 L 132.57,223.54 L 130.95,225.58 L 129.29,227.56 L 127.59,229.49 L 125.84,231.37 L 124.05,233.19 L 122.21,234.96 L 120.33,236.68 L 118.40,238.34 L 59.33,167.81 L 61.30,166.20 L 63.32,164.65 L 65.39,163.15 L 67.50,161.71 L 69.65,160.32 L 71.85,158.98 L 74.10,157.69 L 76.39,156.46 L 78.72,155.28 L 81.09,154.15 L 83.51,153.07 L 85.97,152.04 L 88.47,151.06 L 91.00,150.12 L 93.58,149.23 L 96.20,148.39 L 98.85,147.59 L 101.54,146.84 L 104.26,146.12 L 107.01,145.45 L 109.80,144.81 L 112.62,144.21 L 115.47,143.65 L 118.35,143.12 L 121.25,142.62 L 124.18,142.15 L 127.13,141.71 L 130.11,141.29 L 133.10,140.91 L 136.12,140.54 L 139.15,140.19 L 142.19,139.87 L 145.26,139.56 L 148.33,139.26 L 151.42,138.98 L 154.51,138.71 L 157.61,138.45 L 160.72,138.19 L 163.83,137.94 L 166.94,137.69 L 170.05,137.44 L 173.16,137.19 L 176.26,136.93 L 179.36,136.67 L 182.46,136.39 L 185.54,136.11 L 188.62,135.82 L 191.68,135.51 L 194.73,135.18 L 197.76,134.84 L 200.77,134.47 L 203.77,134.08 L 206.74,133.67 L 209.70,133.23 L 212.62,132.76 L 215.53,132.26 L 218.40,131.73 L 221.25,131.17 L 224.07,130.57 L 226.86,129.93 L 229.61,129.26 L 232.34,128.54 L 235.02,127.78 L 237.68,126.99 L 240.29,126.14 L 242.87,125.25 L 245.41,124.32 L 247.91,123.34 L 208.86,103.01 L 208.67,103.95 L 208.47,104.82 L 208.27,105.61 L 208.08,106.35 L 207.91,107.02 L 207.77,107.64 L 207.65,108.21 L 207.57,108.74 L 207.54,109.23 L 207.54,109.70 L 207.60,110.16 Z" fill="url(#bg0)"/>
-</svg></div>
+    <div class="hero-mark"><svg viewBox="0 0 400 400" role="img" aria-label="Confluence"><use href="#confluence-mark"/></svg></div>
     <h1 class="hero-tagline">Every loyalty you've earned, finally home.</h1>
     <p class="hero-lede">Points, miles, stars, stamps — everything you've been quietly collecting, gathered into one clear view and given one honest worth.</p>
     <div class="scroll-hint">scroll</div>
@@ -386,21 +592,564 @@ footer .inner .left svg{width:20px;height:20px;opacity:0.85}
 <footer>
   <div class="inner">
     <div class="left">
-      <svg aria-hidden="true" viewBox="0 0 400 400" style="width:20px;height:20px;opacity:0.8">
-<path d="M 200 60 L 330 260 L 70 260 Z" fill="none" stroke="rgba(251,248,243,0.55)" stroke-width="16" stroke-linejoin="round"/>
-</svg>
+      <svg aria-hidden="true" viewBox="0 0 400 400">
+        <path d="M 200 60 L 330 260 L 70 260 Z" fill="none" stroke="rgba(251,248,243,0.55)" stroke-width="16" stroke-linejoin="round"/>
+      </svg>
       <span>confluence</span>
     </div>
     <div>a London project · in early exploration · hello@confluence.xyz</div>
   </div>
 </footer>
 
+</div><!-- /#view-landing -->
+
+<!-- ============================================= -->
+<!-- OVERVIEW VIEW                                 -->
+<!-- ============================================= -->
+<div id="view-overview">
+
+<nav class="over-light" id="overview-nav" style="position:sticky;background:rgba(251,248,243,0.92)">
+  <button type="button" class="brand" onclick="goHome()" aria-label="Confluence — home">
+    <svg aria-hidden="true" role="img"><use href="#confluence-mark"/></svg>
+    <span>confluence</span>
+  </button>
+  <div class="nav-actions">
+    <button type="button" class="cta" onclick="logout()">Log out</button>
+  </div>
+</nav>
+
+<div class="ov-header">
+  <div class="inner">
+    <div class="ov-eyebrow"><span class="sync-dot"></span>live sync · 6 programmes</div>
+    <h1 class="ov-title">Your loyalty, at a glance.</h1>
+    <p class="ov-sub">Every programme you've connected, translated into a single honest sum. And, where it helps, a quiet suggestion of the next move.</p>
+
+    <div class="ov-alert" id="alertBanner">
+      <div class="alert-mark"></div>
+      <div id="alertBody"></div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Total portfolio worth</div>
+        <div class="kpi-value" id="kpiTotal">—</div>
+        <div class="kpi-sub" id="kpiPts">—</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Programmes tracked</div>
+        <div class="kpi-value">6</div>
+        <div class="kpi-sub">banks · airlines · hotels</div>
+      </div>
+      <div class="kpi accent">
+        <div class="kpi-label">At risk</div>
+        <div class="kpi-value" id="kpiRisk">—</div>
+        <div class="kpi-sub" id="kpiRiskSub">—</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tabs-bar">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="switchTab('dashboard', this)">Dashboard</button>
+    <button class="tab-btn" onclick="switchTab('optimizer', this)">Optimizer</button>
+    <button class="tab-btn" onclick="switchTab('expiration', this)">Expiration</button>
+  </div>
+</div>
+
+<div id="tab-dashboard" class="ov-content">
+  <div class="charts-row">
+    <div class="card">
+      <div class="card-title">Portfolio mix</div>
+      <div class="donut-wrap">
+        <svg id="donutSvg" width="160" height="160" viewBox="0 0 160 160"></svg>
+      </div>
+      <div class="cat-legend" id="catLegend"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Worth by programme</div>
+      <svg id="barSvg" class="bar-chart-svg" height="210"></svg>
+    </div>
+  </div>
+
+  <div class="filter-row">
+    <span class="filter-label">Filter</span>
+    <button class="pill active" onclick="filterCards('all', this)">All</button>
+    <button class="pill" onclick="filterCards('credit_card', this)">Credit cards</button>
+    <button class="pill" onclick="filterCards('airline', this)">Airlines</button>
+    <button class="pill" onclick="filterCards('hotel', this)">Hotels</button>
+    <div class="view-toggle">
+      <button class="toggle-opt active" id="toggleUSD" onclick="setView('usd', this)">£ worth</button>
+      <button class="toggle-opt" id="togglePts" onclick="setView('pts', this)">points</button>
+    </div>
+  </div>
+
+  <div class="programs-grid" id="programsGrid"></div>
+</div>
+
+<div id="tab-optimizer" class="ov-content" style="display:none">
+  <div class="section-info">
+    <div class="section-info-title">Top redemption opportunities</div>
+    <div class="section-info-sub">Ranked by pence-per-point value. Standard award availability assumed.</div>
+  </div>
+  <div class="opt-list" id="optList"></div>
+  <div class="api-box">
+    <div class="api-box-title">Integration architecture</div>
+    <p style="margin-bottom:4px;line-height:1.6">Behind the calm, Confluence quietly connects to every programme that matters.</p>
+    <div class="api-grid">
+      <div class="api-item"><div class="api-item-label">Banks</div><div class="api-item-method">Open Banking APIs · OAuth 2.0</div></div>
+      <div class="api-item"><div class="api-item-label">Airlines</div><div class="api-item-method">Loyalty REST APIs · scraper fallback</div></div>
+      <div class="api-item"><div class="api-item-label">Hotels</div><div class="api-item-method">Partner APIs · headless browser</div></div>
+      <div class="api-item"><div class="api-item-label">Cadence</div><div class="api-item-method">Every 6 hours, configurable</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-expiration" class="ov-content" style="display:none">
+  <div class="section-info">
+    <div class="section-info-title">Expiration tracker</div>
+    <div class="section-info-sub">Sorted by urgency — the items most at risk sit at the top.</div>
+  </div>
+  <div class="exp-list" id="expList"></div>
+</div>
+
+<div class="ov-foot">
+  <div class="ov-foot-line">
+    <span>confluence · illustrative data · in early exploration</span>
+    <span>last full sync · 23 Apr 2026 · 08:00</span>
+  </div>
+</div>
+
+</div><!-- /#view-overview -->
+
+<!-- ============================================= -->
+<!-- LOGIN MODAL                                   -->
+<!-- ============================================= -->
+<div class="modal-backdrop" id="loginModal" onclick="if(event.target===this)closeLogin()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle" style="position:relative">
+    <button class="modal-close" type="button" onclick="closeLogin()" aria-label="Close">×</button>
+    <h3 id="loginTitle">Welcome back.</h3>
+    <p class="modal-sub">Sign in to see the confluence of everything you've earned.</p>
+    <form id="loginForm" onsubmit="return submitLogin(event)">
+      <div class="modal-field">
+        <label for="loginUser">Username</label>
+        <input type="text" id="loginUser" autocomplete="username" required/>
+      </div>
+      <div class="modal-field">
+        <label for="loginPass">Password</label>
+        <input type="password" id="loginPass" autocomplete="current-password" required/>
+      </div>
+      <div class="modal-actions">
+        <div class="modal-error" id="loginError"></div>
+        <button type="submit" class="modal-submit">Sign in →</button>
+      </div>
+    </form>
+    <p class="modal-hint">demo credentials · admin / admin</p>
+  </div>
+</div>
+
 <script>
+// ─────────────────────────────────────────────
+// VIEW / LOGIN
+// ─────────────────────────────────────────────
+function openLogin(){
+  document.getElementById('loginModal').classList.add('open');
+  setTimeout(()=>document.getElementById('loginUser').focus(),120);
+}
+function closeLogin(){
+  document.getElementById('loginModal').classList.remove('open');
+  document.getElementById('loginError').textContent='';
+}
+function submitLogin(e){
+  e.preventDefault();
+  const u=document.getElementById('loginUser').value.trim();
+  const p=document.getElementById('loginPass').value;
+  if(u==='admin' && p==='admin'){
+    showOverview();
+    closeLogin();
+    document.getElementById('loginForm').reset();
+    return false;
+  }
+  document.getElementById('loginError').textContent='that combination isn’t right. try admin / admin.';
+  return false;
+}
+function showOverview(){
+  document.getElementById('view-landing').style.display='none';
+  document.getElementById('view-overview').classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  document.body.style.background='var(--cream)';
+}
+function logout(){
+  document.getElementById('view-overview').classList.remove('active');
+  document.getElementById('view-landing').style.display='';
+  window.scrollTo({top:0,behavior:'instant'});
+  document.body.style.background='var(--indigo)';
+}
+function goHome(){
+  if(document.getElementById('view-overview').classList.contains('active')){
+    logout();
+  } else {
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeLogin();
+});
+
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+const PROGRAMS = [
+  { id:"amex",    name:"Amex Membership Rewards", short:"Amex MR",  cat:"credit_card", icon:"✦", points:87500,  cpp:2.0, expiry:null,         expiryNote:"Never expire while the card is active.",    partners:["Delta SkyMiles","Air France/KLM","British Airways","Marriott Bonvoy","Singapore Airlines"], status:"active",        acct:"1008" },
+  { id:"chase",   name:"Chase Ultimate Rewards",  short:"Chase UR", cat:"credit_card", icon:"✦", points:124300, cpp:1.9, expiry:null,         expiryNote:"Never expire while the card is active.",    partners:["United MileagePlus","Hyatt","Southwest","British Airways","Air France/KLM"],           status:"active",        acct:"4246" },
+  { id:"delta",   name:"Delta SkyMiles",           short:"Delta",    cat:"airline",     icon:"◇", points:45200,  cpp:1.2, expiry:null,         expiryNote:"Miles never expire.",                        partners:["Amex MR","Marriott Bonvoy"],                                                           status:"active",        acct:null   },
+  { id:"united",  name:"United MileagePlus",       short:"United",   cat:"airline",     icon:"◇", points:32100,  cpp:1.4, expiry:"2026-06-15", expiryNote:"Expires 15 June 2026.",                      partners:["Chase UR","Capital One","Marriott Bonvoy"],                                            status:"expiring_soon", acct:null   },
+  { id:"marriott",name:"Marriott Bonvoy",          short:"Bonvoy",   cat:"hotel",       icon:"◈", points:215000, cpp:0.8, expiry:"2026-07-01", expiryNote:"Expires 1 July 2026 — act soon.",            partners:["Amex MR","Chase UR","40+ airline partners"],                                          status:"critical",      acct:null   },
+  { id:"hilton",  name:"Hilton Honors",            short:"Hilton",   cat:"hotel",       icon:"◈", points:98750,  cpp:0.6, expiry:null,         expiryNote:"Expire after 12 months of inactivity.",     partners:["Amex MR"],                                                                            status:"active",        acct:null   },
+];
+
+const PROGRAM_COLORS = {
+  amex:"#B8A7E0", chase:"#8B7BB8", delta:"#A3BFE8", united:"#7B9BC9",
+  marriott:"#F2B78F", hilton:"#C89B7B"
+};
+PROGRAMS.forEach(p => p.color = PROGRAM_COLORS[p.id]);
+
+const REDEMPTIONS = [
+  { title:"Amex → Singapore Suites",            desc:"Transfer Amex MR to Singapore Airlines KrisFlyer for a First Class redemption.",           prog:"Amex Membership Rewards", pid:"amex",    pts:77000,  val:9000, rating:"exceptional", cpp:11.7, tip:"Availability is rare — worth setting an alert." },
+  { title:"United Polaris business to Japan",   desc:"Saver award on United. A way to spend expiring miles at close to their peak.",             prog:"United MileagePlus",      pid:"united",  pts:32100,  val:4200, rating:"exceptional", cpp:13.1, tip:"Miles expire 15 June — worth booking sooner." },
+  { title:"Business class to Europe",           desc:"Chase UR → British Airways → Finnair business. A gentle sweet spot.",                     prog:"Chase Ultimate Rewards",  pid:"chase",   pts:50000,  val:4500, rating:"exceptional", cpp:9.0,  tip:"Best booked around eleven months ahead." },
+  { title:"Delta Premium Select to Asia",       desc:"Off-peak SkyMiles award to Tokyo or Seoul.",                                              prog:"Delta SkyMiles",          pid:"delta",   pts:38000,  val:800,  rating:"average",     cpp:2.1,  tip:"Off-peak dates open up the availability." },
+  { title:"Marriott cat. 4 — five nights",      desc:"Fifth night free on Bonvoy award stays. Worth moving before the expiry.",                 prog:"Marriott Bonvoy",         pid:"marriott",pts:160000, val:1600, rating:"good",        cpp:1.0,  tip:"Use before 1 July to avoid the clock running out." },
+];
+
+const CAT_META = {
+  credit_card: { label:"Credit cards", color:"#B8A7E0" },
+  airline:     { label:"Airlines",     color:"#A3BFE8" },
+  hotel:       { label:"Hotels",       color:"#F2B78F" },
+};
+
+// ─────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────
+const fmtGBP = n => "£" + Math.round(n).toLocaleString("en-GB");
+const fmtPts = n => n.toLocaleString("en-GB");
+const daysUntil = d => d ? Math.ceil((new Date(d) - new Date()) / 86400000) : null;
+const usdVal = p => (p.points * p.cpp) / 100;
+
+// ─────────────────────────────────────────────
+// INIT KPIs + Alert
+// ─────────────────────────────────────────────
+(function initHeader(){
+  const total    = PROGRAMS.reduce((s,p) => s + usdVal(p), 0);
+  const totalPts = PROGRAMS.reduce((s,p) => s + p.points,  0);
+  const atRisk   = PROGRAMS.filter(p => p.status !== "active");
+  const riskUSD  = atRisk.reduce((s,p) => s + usdVal(p), 0);
+
+  document.getElementById("kpiTotal").textContent = fmtGBP(total);
+  document.getElementById("kpiPts").textContent   = fmtPts(totalPts) + " combined points";
+  document.getElementById("kpiRisk").textContent  = fmtGBP(riskUSD);
+  document.getElementById("kpiRiskSub").textContent = atRisk.length + " programmes expiring soon";
+
+  const body  = document.getElementById("alertBody");
+  const title = document.createElement("div");
+  title.className = "alert-title";
+  title.textContent = fmtGBP(riskUSD) + " of points are quietly approaching their expiry.";
+  body.appendChild(title);
+  atRisk.forEach(p => {
+    const d   = daysUntil(p.expiry);
+    const line = document.createElement("div");
+    line.className = "alert-line";
+    line.innerHTML = `<strong style="color:rgba(251,248,243,0.85);font-weight:500">${p.name}</strong> · ${fmtPts(p.points)} pts${d !== null ? ` — ${d} days left` : ""}`;
+    body.appendChild(line);
+  });
+})();
+
+// ─────────────────────────────────────────────
+// DONUT CHART
+// ─────────────────────────────────────────────
+(function buildDonut(){
+  const svg = document.getElementById("donutSvg");
+  const cx=80, cy=80, ro=72, ri=50;
+  const cats = Object.entries(CAT_META);
+  const totals = cats.map(([k]) => PROGRAMS.filter(p=>p.cat===k).reduce((s,p)=>s+usdVal(p),0));
+  const grand  = totals.reduce((s,v)=>s+v,0);
+  let startAngle = -Math.PI/2;
+
+  cats.forEach(([k,m],i) => {
+    const frac  = totals[i] / grand;
+    const angle = frac * 2 * Math.PI;
+    const end   = startAngle + angle;
+    const largeArc = angle > Math.PI ? 1 : 0;
+    const x1 = cx + ro*Math.cos(startAngle), y1 = cy + ro*Math.sin(startAngle);
+    const x2 = cx + ro*Math.cos(end),        y2 = cy + ro*Math.sin(end);
+    const x3 = cx + ri*Math.cos(end),        y3 = cy + ri*Math.sin(end);
+    const x4 = cx + ri*Math.cos(startAngle), y4 = cy + ri*Math.sin(startAngle);
+    const d = `M${x1},${y1} A${ro},${ro},0,${largeArc},1,${x2},${y2} L${x3},${y3} A${ri},${ri},0,${largeArc},0,${x4},${y4} Z`;
+    const path = document.createElementNS("http://www.w3.org/2000/svg","path");
+    path.setAttribute("d", d);
+    path.setAttribute("fill", m.color);
+    path.setAttribute("stroke","#FBF8F3");
+    path.setAttribute("stroke-width","2");
+    svg.appendChild(path);
+    startAngle = end;
+  });
+
+  const text = document.createElementNS("http://www.w3.org/2000/svg","text");
+  text.setAttribute("x","80"); text.setAttribute("y","77"); text.setAttribute("text-anchor","middle");
+  text.setAttribute("font-size","16"); text.setAttribute("font-weight","400");
+  text.setAttribute("font-family","Fraunces, Georgia, serif");
+  text.setAttribute("fill","#1E1B3A");
+  text.textContent = fmtGBP(PROGRAMS.reduce((s,p)=>s+usdVal(p),0));
+  svg.appendChild(text);
+  const sub = document.createElementNS("http://www.w3.org/2000/svg","text");
+  sub.setAttribute("x","80"); sub.setAttribute("y","94"); sub.setAttribute("text-anchor","middle");
+  sub.setAttribute("font-size","9");
+  sub.setAttribute("font-family","Inter, sans-serif");
+  sub.setAttribute("fill","rgba(30,27,58,0.5)");
+  sub.setAttribute("letter-spacing","0.1em");
+  sub.textContent = "total worth";
+  svg.appendChild(sub);
+
+  const leg = document.getElementById("catLegend");
+  cats.forEach(([k,m],i) => {
+    const row = document.createElement("div"); row.className="cat-row";
+    row.innerHTML = `<span class="cat-name"><span class="cat-dot" style="background:${m.color}"></span>${m.label}</span><span class="cat-val">${fmtGBP(totals[i])}</span>`;
+    leg.appendChild(row);
+  });
+})();
+
+// ─────────────────────────────────────────────
+// BAR CHART
+// ─────────────────────────────────────────────
+(function buildBar(){
+  const svg     = document.getElementById("barSvg");
+  const padding = { left:44, right:10, top:10, bottom:50 };
+  const W = 520, H = 210;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  const maxVal = Math.max(...PROGRAMS.map(p=>usdVal(p)));
+  const chartW  = W - padding.left - padding.right;
+  const chartH  = H - padding.top  - padding.bottom;
+  const barW    = (chartW / PROGRAMS.length) * 0.5;
+  const spacing = chartW / PROGRAMS.length;
+
+  [0, 0.25, 0.5, 0.75, 1].forEach(f => {
+    const y = padding.top + chartH * (1-f);
+    const val = maxVal * f;
+    const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+    line.setAttribute("x1", padding.left); line.setAttribute("x2", W-padding.right);
+    line.setAttribute("y1", y); line.setAttribute("y2", y);
+    line.setAttribute("stroke","rgba(30,27,58,0.06)"); line.setAttribute("stroke-width","1");
+    svg.appendChild(line);
+    const lbl = document.createElementNS("http://www.w3.org/2000/svg","text");
+    lbl.setAttribute("x", padding.left-6); lbl.setAttribute("y", y+3);
+    lbl.setAttribute("text-anchor","end"); lbl.setAttribute("font-size","9");
+    lbl.setAttribute("font-family","Inter, sans-serif");
+    lbl.setAttribute("fill","rgba(30,27,58,0.4)");
+    lbl.textContent = val >= 1000 ? "£"+(val/1000).toFixed(1)+"k" : "£"+Math.round(val);
+    svg.appendChild(lbl);
+  });
+
+  PROGRAMS.forEach((p, i) => {
+    const val   = usdVal(p);
+    const barH  = (val / maxVal) * chartH;
+    const x     = padding.left + spacing*i + spacing/2 - barW/2;
+    const y     = padding.top + chartH - barH;
+
+    const rect = document.createElementNS("http://www.w3.org/2000/svg","rect");
+    rect.setAttribute("x",x); rect.setAttribute("y",y);
+    rect.setAttribute("width",barW); rect.setAttribute("height",barH);
+    rect.setAttribute("fill",p.color); rect.setAttribute("rx","3");
+    svg.appendChild(rect);
+
+    const lbl = document.createElementNS("http://www.w3.org/2000/svg","text");
+    lbl.setAttribute("x", x+barW/2); lbl.setAttribute("y", H-padding.bottom+16);
+    lbl.setAttribute("text-anchor","middle"); lbl.setAttribute("font-size","10");
+    lbl.setAttribute("font-family","Inter, sans-serif");
+    lbl.setAttribute("fill","rgba(30,27,58,0.55)");
+    lbl.textContent = p.short;
+    svg.appendChild(lbl);
+  });
+})();
+
+// ─────────────────────────────────────────────
+// PROGRAM CARDS
+// ─────────────────────────────────────────────
+let openCard  = null;
+let curFilter = "all";
+let curView   = "usd";
+
+function renderCards() {
+  const grid = document.getElementById("programsGrid");
+  grid.innerHTML = "";
+  const shown = curFilter === "all" ? PROGRAMS : PROGRAMS.filter(p=>p.cat===curFilter);
+  shown.forEach(p => {
+    const usd  = Math.round(usdVal(p));
+    const days = daysUntil(p.expiry);
+    const isOpen = openCard === p.id;
+    const badgeCls = p.status === "critical" ? "urgent" : p.status === "expiring_soon" ? "expiring" : "active";
+    const badgeTxt = p.status === "critical" ? "urgent" : p.status === "expiring_soon" ? "expiring" : "active";
+    const daysCls  = days !== null ? (days < 30 ? "red" : "amber") : "";
+
+    const primaryVal  = curView === "usd" ? fmtGBP(usd) : fmtPts(p.points) + " pts";
+    const secondaryVal= curView === "usd"
+      ? `${fmtPts(p.points)} pts · ${p.cpp}p/pt`
+      : `≈ ${fmtGBP(usd)} · ${p.cpp}p/pt`;
+
+    const card = document.createElement("div");
+    card.className = "prog-card" + (isOpen ? " open" : "");
+    card.onclick = () => { openCard = (openCard === p.id ? null : p.id); renderCards(); };
+    card.innerHTML = `
+      <div class="prog-top">
+        <div class="prog-identity">
+          <div class="prog-icon" style="background:${p.color}33;color:${p.color}">${p.icon}</div>
+          <div>
+            <div class="prog-name">${p.name}</div>
+            <div class="prog-cat">${CAT_META[p.cat].label}${p.acct ? " · ···"+p.acct : ""}</div>
+          </div>
+        </div>
+        <span class="badge ${badgeCls}">${badgeTxt}</span>
+      </div>
+      <div class="prog-bottom">
+        <div>
+          <div class="prog-usd">${primaryVal}</div>
+          <div class="prog-pts">${secondaryVal}</div>
+        </div>
+        <div class="prog-right">
+          ${days !== null ? `<div class="prog-days ${daysCls}">${days}d left</div>` : ""}
+          <div class="prog-sync">synced today</div>
+          <div class="prog-toggle">${isOpen ? "collapse ▲" : "details ▼"}</div>
+        </div>
+      </div>
+      ${isOpen ? `
+      <div class="prog-expand">
+        <div class="partners-label">Transfer partners</div>
+        <div class="partners-list">${p.partners.map(t=>`<span class="partner-chip">${t}</span>`).join("")}</div>
+        <div class="expiry-note">${p.expiryNote}</div>
+      </div>` : ""}
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterCards(cat, btn) {
+  curFilter = cat;
+  document.querySelectorAll(".filter-row .pill").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderCards();
+}
+
+function setView(mode, btn) {
+  curView = mode;
+  document.querySelectorAll(".toggle-opt").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderCards();
+}
+
+renderCards();
+
+// ─────────────────────────────────────────────
+// OPTIMIZER
+// ─────────────────────────────────────────────
+(function buildOptimizer(){
+  const list = document.getElementById("optList");
+  [...REDEMPTIONS].sort((a,b)=>b.cpp-a.cpp).forEach(r => {
+    const prog     = PROGRAMS.find(p=>p.id===r.pid);
+    const canAfford= prog && prog.points >= r.pts;
+    const el = document.createElement("div");
+    el.className = "opt-card";
+    el.innerHTML = `
+      <div class="opt-left">
+        <div class="opt-header">
+          <span class="opt-title">${r.title}</span>
+          <span class="rating-badge ${r.rating}">${r.rating}</span>
+          <span class="afford-badge ${canAfford ? 'yes' : 'no'}">${canAfford ? "you have enough" : "need more pts"}</span>
+        </div>
+        <div class="opt-desc">${r.desc}</div>
+        <div class="opt-meta">
+          <span><span class="prog-dot" style="background:${prog?.color||'#888'}"></span>${r.prog}</span>
+          <span>${fmtPts(r.pts)} pts required</span>
+        </div>
+        <div class="opt-tip">${r.tip}</div>
+      </div>
+      <div class="opt-right">
+        <div class="opt-usd">${fmtGBP(r.val)}</div>
+        <div class="opt-usd-sub">cash equivalent</div>
+        <div class="cpp-pill">${r.cpp}p/pt</div>
+      </div>
+    `;
+    list.appendChild(el);
+  });
+})();
+
+// ─────────────────────────────────────────────
+// EXPIRATION
+// ─────────────────────────────────────────────
+(function buildExpiration(){
+  const list = document.getElementById("expList");
+  [...PROGRAMS].sort((a,b)=>{
+    const da=daysUntil(a.expiry), db=daysUntil(b.expiry);
+    if(da===null&&db===null) return 0;
+    if(da===null) return 1; if(db===null) return -1;
+    return da-db;
+  }).forEach(p => {
+    const days = daysUntil(p.expiry);
+    const usd  = Math.round(usdVal(p));
+    let cardCls, urgCls, urgTxt, barColor;
+    if(days!==null&&days<30)      { cardCls="critical"; urgCls="red";   urgTxt="critical";       barColor="#F2B78F"; }
+    else if(days!==null&&days<90) { cardCls="soon";     urgCls="amber"; urgTxt="expiring soon";  barColor="#F2B78F"; }
+    else if(days!==null)          { cardCls="ok";       urgCls="green"; urgTxt="in good time";   barColor="#B8A7E0"; }
+    else                          { cardCls="none";     urgCls="gray";  urgTxt="no expiry";      barColor="#D8D4CC"; }
+    const pct = days!==null ? Math.max(4, Math.min(100, Math.round((1-days/365)*100))) : 0;
+    const expiryFmt = p.expiry ? new Date(p.expiry).toLocaleDateString("en-GB",{month:"short",day:"numeric",year:"numeric"}) : "";
+
+    const el = document.createElement("div");
+    el.className = `exp-card ${cardCls}`;
+    el.innerHTML = `
+      <div class="exp-top">
+        <div class="exp-identity">
+          <div class="exp-icon" style="color:${p.color}">${p.icon}</div>
+          <div>
+            <div class="exp-name-row">
+              <span class="exp-name">${p.name}</span>
+              <span class="exp-urgency ${urgCls}">${urgTxt}</span>
+            </div>
+            <div class="exp-note">${p.expiryNote}</div>
+          </div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-usd">${fmtGBP(usd)}</div>
+          <div class="exp-pts">${fmtPts(p.points)} pts</div>
+          ${days!==null ? `<div class="exp-days ${urgCls}">${days} days left</div>` : ""}
+        </div>
+      </div>
+      ${days!==null ? `
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      <div class="bar-dates"><span>today</span><span>${expiryFmt}</span></div>
+      ` : ""}
+      ${days!==null&&days<30 ? `<div class="action-tip">A calm suggestion: transfer to an airline partner, or book a stay, to reset the expiry clock.</div>` : ""}
+    `;
+    list.appendChild(el);
+  });
+})();
+
+// ─────────────────────────────────────────────
+// TAB SWITCHING
+// ─────────────────────────────────────────────
+function switchTab(name, btn) {
+  ["dashboard","optimizer","expiration"].forEach(t => {
+    document.getElementById("tab-"+t).style.display = t===name ? "block" : "none";
+  });
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+// ─────────────────────────────────────────────
+// LANDING NAV / FADE (from index.html)
+// ─────────────────────────────────────────────
 document.documentElement.classList.add('js-fade');
 window.addEventListener('DOMContentLoaded',()=>{
-  const nav=document.querySelector('nav');
-  const sections=document.querySelectorAll('section');
-  // Track which section is currently at the top of the viewport and theme nav accordingly
+  const nav=document.getElementById('landing-nav');
+  const sections=document.querySelectorAll('#view-landing section');
   const topObserver=new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
@@ -411,10 +1160,8 @@ window.addEventListener('DOMContentLoaded',()=>{
     });
   },{rootMargin:'-1px 0px -90% 0px',threshold:0});
   sections.forEach(s=>topObserver.observe(s));
-  // Track whether page is scrolled at all (for subtle dark-nav translucency)
   const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>80);
   onScroll();window.addEventListener('scroll',onScroll,{passive:true});
-  // Fade-in observer
   const fadeEls=document.querySelectorAll('.fade');
   if(!('IntersectionObserver' in window)){fadeEls.forEach(el=>el.classList.add('in'));return}
   const fio=new IntersectionObserver(es=>es.forEach(e=>{
